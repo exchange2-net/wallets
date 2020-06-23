@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="13.714" viewBox="0 0 16 13.714">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Mask" d="M9.143,13.714A6.807,6.807,0,0,1,4.3,11.7l1.082-1.082a5.264,5.264,0,0,0,3.764,1.57A5.333,5.333,0,1,0,3.81,6.857H6.095L3.017,9.928l-.053-.107L0,6.857H2.286a6.857,6.857,0,1,1,6.857,6.857Zm2.5-4.16h0L8.381,7.619V3.81H9.524V7.048l2.667,1.585-.548.921Z" transform="translate(3 5)" fill="#cac9ca"/>
+    </clipPath>
+  </defs>
+  <g id="Group_68" data-name="Group 68" transform="translate(-3 -5)">
+    <path id="Mask-2" data-name="Mask" d="M9.143,13.714A6.807,6.807,0,0,1,4.3,11.7l1.082-1.082a5.264,5.264,0,0,0,3.764,1.57A5.333,5.333,0,1,0,3.81,6.857H6.095L3.017,9.928l-.053-.107L0,6.857H2.286a6.857,6.857,0,1,1,6.857,6.857Zm2.5-4.16h0L8.381,7.619V3.81H9.524V7.048l2.667,1.585-.548.921Z" transform="translate(3 5)" fill="#cac9ca"/>
+    <g id="Mask_Group_68" data-name="Mask Group 68" clip-path="url(#clip-path)">
+      <g id="Color_orange" data-name="Color/orange" transform="translate(-27.048 -31.476)">
+        <rect id="Rectangle" width="51" height="55" fill="#e58314"/>
+      </g>
+    </g>
+  </g>
+</svg>

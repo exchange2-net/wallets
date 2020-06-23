@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Icons/crypto/RVN</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M9.53886845,8.13213213 L11.012012,16.9938839 L7,20 L9.53886845,8.13213213 Z M9.78678679,8.13213213 L13.5585586,16.996997 L11.1953405,16.996997 L9.78678679,8.13213213 Z M9.78678679,7.67567568 L14.951952,8.44445448 L13.7467419,16.9009009 L9.78678679,7.67567568 Z M15.0887836,8.61261261 L15.8408408,9.56836022 L14.039039,16.1801802 L15.0887836,8.61261261 Z M14.4896599,6.06606607 L14.975976,8.27627628 L10.003003,7.57089413 L14.4896599,6.06606607 Z M13.4530816,4 L14.0797886,4.6418018 L14.4714715,5.90974174 L9.78678679,7.45945946 L10.3665082,6.3323964 L10.6485179,5.29924324 L11.3535663,4.53222823 L12.4659995,4 L13.4530816,4 Z M14.2552553,4.74474474 L16.4894895,5.3877127 L14.6800602,5.87387387 L14.2552553,4.74474474 Z" id="path-1"></path>
+    </defs>
+    <g id="Icons/crypto/RVN" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Mask" fill="#FFFFFF" xlink:href="#path-1"></use>
+        <g id="Color/blue" mask="url(#mask-2)" fill="#1428E5">
+            <rect id="Rectangle" x="0" y="0" width="24" height="24"></rect>
+        </g>
+    </g>
+</svg>

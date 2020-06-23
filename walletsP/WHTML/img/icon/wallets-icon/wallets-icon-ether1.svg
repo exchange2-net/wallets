@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Icons/crypto/ETHO</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M9.80006,9.05996 L4.89996,15.96996 L4.89996,11.95996 L9.80006,9.05996 Z M-3.99999999e-05,9.05994 L3.78996,11.30004 L4.17006,14.94004 L-3.99999999e-05,9.05994 Z M4.89996,4e-05 L9.80006,8.13004 L4.89996,11.02994 L4.89996,4e-05 Z M2.94006,3.25004 L3.67996,10.31004 L-3.99999999e-05,8.13004 L2.94006,3.25004 Z" id="path-1"></path>
+    </defs>
+    <g id="Icons/crypto/ETHO" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Color/blue" transform="translate(7.000000, 4.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#971A44" xlink:href="#path-1"></use>
+            <g mask="url(#mask-2)" fill="#1428E5" id="Rectangle">
+                <g transform="translate(-7.000000, -4.000000)">
+                    <rect x="0" y="0" width="24" height="24"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

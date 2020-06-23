@@ -1,0 +1,15 @@
+<svg id="Icons_crypto_BTC" data-name="Icons/crypto/BTC" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="24" viewBox="0 0 22 24">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Mask" d="M1.308,11.214,0,11.768.631,9.009l1.324-.58L3.862,0h4.7L7.171,6.2l1.292-.571L7.84,8.375l-1.308.571-.777,3.483h7.079L12.033,16H.231Z" fill="#3a3c43"/>
+    </clipPath>
+  </defs>
+  <g id="Color_blue" data-name="Color/blue" transform="translate(4.583 4)">
+    <path id="Mask-2" data-name="Mask" d="M1.308,11.214,0,11.768.631,9.009l1.324-.58L3.862,0h4.7L7.171,6.2l1.292-.571L7.84,8.375l-1.308.571-.777,3.483h7.079L12.033,16H.231Z" fill="#3a3c43"/>
+    <g id="Color_blue-2" data-name="Color/blue" clip-path="url(#clip-path)">
+      <g id="Color_blue-3" data-name="Color/blue" transform="translate(-4.583 -4)">
+        <rect id="Rectangle" width="22" height="24" fill="#1428e5"/>
+      </g>
+    </g>
+  </g>
+</svg>

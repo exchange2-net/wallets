@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Icons/crypto/ETH</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M12.5,12.0294784 L6.36686608,20.3106576 L0.243081525,12.0294784 L6.31077042,15.4399092 L12.5,12.0294784 Z M6.329469,8.00226758 L12.4813014,10.6598639 L6.329469,13.9977324 L0,10.5873016 L6.329469,8.00226758 Z M6.29207183,0.310657583 L12.1914734,9.33560092 L6.30142108,6.78684808 L0.22438295,9.27210883 L6.29207183,0.310657583 Z" id="path-1"></path>
+    </defs>
+    <g id="Icons/crypto/ETH" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Color/blue" transform="translate(6.000000, 1.689342)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#3A3C43" fill-rule="nonzero" xlink:href="#path-1"></use>
+            <g mask="url(#mask-2)" fill="#1428E5" id="Rectangle">
+                <g transform="translate(-6.000000, -1.689342)">
+                    <rect x="0" y="0" width="24" height="24"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

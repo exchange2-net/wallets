@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.001" height="28.001" viewBox="0 0 28.001 28.001" fill="#1428e5">
+	<clipPath id="clip-path">
+		<path d="M14,28A14,14,0,1,1,28,14,14.016,14.016,0,0,1,14,28Zm-1.4-9.8V21h2.8V18.2ZM12.6,7v8.4h2.8V7Z" transform="translate(0 0)"/>
+	</clipPath>
+	<g clip-path="url(#clip-path)">
+		<g transform="translate(-10 -10)">
+			<rect id="Rectangle" width="48" height="48" />
+		</g>
+	</g>
+</svg>

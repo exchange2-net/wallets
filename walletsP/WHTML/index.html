@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="shortcut icon" href="favicon.png" type="image/png" />
+    <title>Wallet: Log-in</title>
+  </head>
+  <body>
+    <!-- Icons -->
+    <div class="icon" style="display: none;">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <symbol id="logo" viewBox="0 0 52 29">
+          <path
+            d="M52,12.443H47.607a1.008,1.008,0,0,1-.962-1.331q.172-.5.341-1,.779-2.287,1.393-4.08t1-2.977q.389-1.185.446-1.351a2.142,2.142,0,0,1,.306-.717.87.87,0,0,1,.64-.331V0h-9.36V.662a4.653,4.653,0,0,1,.807.276.654.654,0,0,1,.363.662,9.234,9.234,0,0,1-.363,1.323Q41.859,4.08,41.3,5.734T40.1,9.345q-.641,1.958-1.254,3.777T37.765,16.4q-.474,1.462-.641,2.123h-.111q-.224-.882-.669-2.481T35.4,12.6q-.5-1.846-1.059-3.8t-1-3.556q-.447-1.6-.725-2.646t-.279-1.1A.581.581,0,0,1,32.611.91,4,4,0,0,1,33.28.662V0H20.02V.662l.752.248a.558.558,0,0,1,.418.579,8.532,8.532,0,0,1-.279,1.185q-.28,1.021-.752,2.564T19.1,8.656q-.585,1.875-1.17,3.721t-1.086,3.473q-.5,1.627-.836,2.674H15.9q-.334-1.1-.864-2.757t-1.142-3.5q-.614-1.846-1.226-3.694T11.551,5.183q-.5-1.543-.808-2.536a7.3,7.3,0,0,1-.306-1.158A.56.56,0,0,1,10.771.91a5.217,5.217,0,0,1,.836-.248V0H1.411V.662c.259,0,.446.2.557.606q.055.165.446,1.378t1,3.06Q4.029,7.554,4.81,9.869l.421,1.249a1.008,1.008,0,0,1-.965,1.325H0l1.114,4.411H6.439a1.018,1.018,0,0,1,.966.692q.28.84.553,1.668.752,2.289,1.365,4.08t.975,2.894A10.646,10.646,0,0,1,10.66,27.4q0,.552-.334.689a5.486,5.486,0,0,1-.78.248V29H21.58v-.662q-1.226,0-1.226-.772a15.285,15.285,0,0,1,.669-2.536q.669-2.15,1.616-5.072t1.95-6.092q1-3.17,1.671-5.6h.112q.779,2.757,1.7,5.872T29.8,20.013q.807,2.758,1.365,4.824a13.7,13.7,0,0,1,.557,2.729q0,.608-1.114.772V29H42.194v-.662a4.829,4.829,0,0,1-.753-.165q-.362-.11-.362-.606a11.155,11.155,0,0,1,.362-1.24q.363-1.129.975-2.922t1.365-4.052q.3-.9.614-1.814a1.019,1.019,0,0,1,.964-.684h5.526Z"
+          />
+        </symbol>
+        <symbol id="facebook-icon" viewBox="0 0 10 20">
+          <path
+            fill="#1428e5"
+            d="M6.205 20V9.999h2.761l.366-3.447H6.205l.005-1.725c0-.899.085-1.38 1.377-1.38h1.725V0h-2.76C3.234 0 2.066 1.672 2.066 4.484v2.069H0v3.446h2.067V20z"
+          />
+        </symbol>
+        <symbol id="skype-icon" viewBox="0 0 20 20">
+          <path
+            fill="#1428e5"
+            d="M19.425 12.123c.368.73.575 1.552.575 2.423C20 17.558 17.524 20 14.468 20a5.571 5.571 0 0 1-2.615-.648 9.745 9.745 0 0 1-1.747.158c-5.268 0-9.54-4.21-9.54-9.406 0-.647.068-1.28.194-1.89A5.38 5.38 0 0 1 0 5.455C0 2.441 2.476 0 5.533 0c1.08 0 2.09.307 2.942.837a9.715 9.715 0 0 1 1.63-.138c5.27 0 9.54 4.211 9.54 9.405 0 .693-.075 1.368-.22 2.02zM15.008 14.6a3.533 3.533 0 0 0 .669-2.098c0-.648-.13-1.204-.389-1.658a3.235 3.235 0 0 0-1.075-1.118c-.45-.289-.998-.535-1.635-.734a22.18 22.18 0 0 0-2.11-.545c-.611-.139-1.056-.247-1.321-.32a4.199 4.199 0 0 1-.769-.293 1.692 1.692 0 0 1-.568-.427.812.812 0 0 1-.192-.546c0-.35.194-.645.592-.902.413-.267.971-.402 1.654-.402.738 0 1.273.12 1.594.362.331.248.62.6.857 1.044.206.348.392.591.571.748.19.167.469.253.822.253.388 0 .719-.136.98-.405.26-.265.392-.571.392-.908 0-.348-.101-.709-.299-1.072-.195-.36-.508-.703-.929-1.028-.416-.321-.946-.58-1.576-.773-.626-.193-1.375-.29-2.228-.29-1.067 0-2.009.146-2.8.435-.805.29-1.428.72-1.854 1.268a3.022 3.022 0 0 0-.649 1.902c0 .745.208 1.38.618 1.886.404.497.956.895 1.64 1.181.67.282 1.51.529 2.503.738.728.15 1.317.295 1.751.427.416.13.758.316 1.02.555.247.229.368.521.368.891 0 .47-.23.855-.707 1.174-.487.327-1.134.494-1.924.494-.573 0-1.04-.083-1.386-.243-.344-.162-.613-.367-.802-.612a4.673 4.673 0 0 1-.547-.957c-.152-.349-.34-.621-.56-.805a1.276 1.276 0 0 0-.84-.288c-.4 0-.736.122-.997.365a1.174 1.174 0 0 0-.398.887c0 .553.205 1.124.61 1.7a4.43 4.43 0 0 0 1.572 1.374c.898.47 2.048.707 3.419.707 1.143 0 2.146-.175 2.982-.518.848-.345 1.5-.832 1.941-1.449z"
+          />
+        </symbol>
+        <symbol id="telegram-icon" viewBox="0 0 20 17">
+          <path
+            fill="#1428e5"
+            d="M7.835 11.07l3.06 1.844-.244.237 4.596 3.395c.846.467 1.456.225 1.667-.785L19.93 1.544C20.24.305 19.459-.256 18.65.11L.934 6.942c-1.21.485-1.202 1.16-.22 1.46l4.546 1.42 10.525-6.64c.497-.302.953-.14.578.192L7.835 11.07l2.816 2.08L8.442 15.3c-.257.25-.46.46-.92.46"
+          />
+        </symbol>
+      </svg>
+    </div>
+
+    <!-- preloader -->
+    <!-- <div class="preloader" id="loader">
+      <div class="preloader-scale-ripple">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div> -->
+
+    <!-- HEADER -->
+    <header class="header authorisation-head">
+      <!-- logo -->
+      <div class="logo">
+        <a href="/" class="logo__link">
+          <svg class="logo__svg" width="52" height="29">
+            <use xlink:href="#logo"></use>
+          </svg>
+        </a>
+
+        <p class="logo__text">Wallet<span>NOW</span></p>
+      </div>
+
+      <!-- burger-menu-->
+      <input id="burger" class="burger-input" type="checkbox" />
+      <div class="burger-menu">
+        <label for="burger" class="burger-menu__label">
+          <svg viewBox="32 32 36 36" xmlns="http://www.w3.org/2000/svg">
+            <path class="burger-menu__line--1" d="M0 70l28-28c2-2 2-2 7-2h64" />
+            <path class="burger-menu__line--2" d="M0 50h99" />
+            <path class="burger-menu__line--3" d="M0 30l28 28c2 2 2 2 7 2h64" />
+          </svg>
+        </label>
+      </div>
+
+      <!-- header-menu-->
+      <nav class="header__menu">
+        <ul class="header__list">
+          <li class="header__item">
+            <a href="/" class="header__link">Dashboard</a>
+          </li>
+          <li class="header__item">
+            <a href="./wallets.html" class="header__link">Wallets</a>
+          </li>
+          <li class="header__item">
+            <a href="./transactions.html" class="header__link">Transactions</a>
+          </li>
+          <li class="header__item">
+            <a href="./history.html" class="header__link">History</a>
+          </li>
+          <li class="header__item" style="display:none;">
+            <a href="./convert.html" class="header__link">Convert</a>
+          </li>
+          <li class="header__item">
+            <a href="./contacts.html" class="header__link">Contacts</a>
+          </li>
+          <li class="header__item">
+            <a href="./settings.html" class="header__link">Settings</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- CONTENT -->
+    <section class="authorisation">
+      <div class="modal-overlay" id="modal_overlay">
+        <div class="modal attention" id="attention3">
+          <div class="modal__header">
+            <!-- <h2 class="modal__title"></h2> -->
+            <a class="modal__close" data-close="close">
+              <svg width="14" height="14">
+                <use xlink:href="#close-icon"></use>
+              </svg>
+            </a>
+          </div>
+          <div class="modal__content">
+            <h2 class="modal__title style-center">attention!</h2>
+            <p class="modal__desc" id="modal__desc"></p>
+            <div class="modal__down-btn">
+              <button class="button modal__button" data-close="close" onclick="removeClass()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="authorisation__left">
+          <h1 class="authorisation__main-title">Log In</h1>
+          <span class="authorisation__desc">
+            Secure solution for your digital money
+          </span>
+          <div class="authorisation__form log-in">
+            <div class="authorisation__content">
+              <input
+                type="email"
+                id="log-in-email"
+                class="authorisation__input "
+                placeholder="email"
+                style="text-transform: none; font-size: 14px;"
+              />
+              <input
+                type="password"
+                id="log-in-password"
+                class="authorisation__input"
+                placeholder="password"
+                style="text-transform: none; font-size: 14px;"
+              />
+            </div>
+            <button class="button authorisation__buton" onclick="LogIN()">Login</button>
+          </div>
+          <div class="authorisation__info">
+            <p class="authorisation__text" style="display: none;">
+              Forgot password?
+            </p>
+            <p class="authorisation__text">
+              Don't have an accoun
+              <a href="./sign-up.html" class="authorisation__link-blue"
+                >Sign Up</a
+              >
+            </p>
+          </div>
+          <div class="authorisation__down">
+            <a href="#" class="authorisation__link-gray">Terms of service</a>
+            <a href="#" class="authorisation__link-gray">Support</a>
+          </div>
+          <ul class="authorisation__list" style="display:none;">
+            <li class="authorisation__item">
+              <a href="#" class="authorisation__link">
+                <svg width="10" height="20">
+                  <use xlink:href="#facebook-icon"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="authorisation__item">
+              <a href="#" class="authorisation__link">
+                <svg width="20" height="20">
+                  <use xlink:href="#skype-icon"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="authorisation__item">
+              <a href="#" class="authorisation__link">
+                <svg width="20" height="17">
+                  <use xlink:href="#telegram-icon"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="authorisation__right">
+          <p class="authorisation__big-text">5K+<br />WALLETS</p>
+          <p class="authorisation__small-text">300K+ TRANSACTIONS</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <script src="js/requests.js"></script>
+  </body>
+</html>

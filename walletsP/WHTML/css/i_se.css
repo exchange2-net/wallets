@@ -1,0 +1,61 @@
+@media only screen and (max-width:321px) {
+    .quick-sender__label {
+        width: 100% !important;
+        margin-bottom: 10px;
+    }
+
+    .row {
+        margin-bottom: 0px !important;
+    }
+
+    .my-wallet__main-int {
+        font-size: 24px !important;
+    }
+
+    .wallet-inside__currency-balance {
+        font-size: 31px;
+    }
+
+    .transactions__card {
+        width: 220px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        max-height: 230px !important;
+    }
+
+    .transactions__main {
+        width: 220px !important;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .transactions__icon {
+        background-position: right;
+        width: 200px;
+        margin-top: 5px;
+    }
+
+    .transactions__events {
+        width: 220px !important;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .transactions__date {
+        width: 200px !important;
+    }
+
+    .transactions__amount {
+        width: 200px !important;
+    }
+
+    .transactions__main-row {
+        width: 200px !important;
+    }
+
+    .transactions__events {
+        width: 200px !important;
+    }
+}

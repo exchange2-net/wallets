@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="shortcut icon" href="favicon.png" type="image/png" />
+    <title>Wallet: Transactions</title>
+  </head>
+  <body class="hidden">
+    <!-- Icons -->
+    <div class="icon" style="display: none;">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <symbol id="logo" viewBox="0 0 52 29">
+          <path
+            d="M52,12.443H47.607a1.008,1.008,0,0,1-.962-1.331q.172-.5.341-1,.779-2.287,1.393-4.08t1-2.977q.389-1.185.446-1.351a2.142,2.142,0,0,1,.306-.717.87.87,0,0,1,.64-.331V0h-9.36V.662a4.653,4.653,0,0,1,.807.276.654.654,0,0,1,.363.662,9.234,9.234,0,0,1-.363,1.323Q41.859,4.08,41.3,5.734T40.1,9.345q-.641,1.958-1.254,3.777T37.765,16.4q-.474,1.462-.641,2.123h-.111q-.224-.882-.669-2.481T35.4,12.6q-.5-1.846-1.059-3.8t-1-3.556q-.447-1.6-.725-2.646t-.279-1.1A.581.581,0,0,1,32.611.91,4,4,0,0,1,33.28.662V0H20.02V.662l.752.248a.558.558,0,0,1,.418.579,8.532,8.532,0,0,1-.279,1.185q-.28,1.021-.752,2.564T19.1,8.656q-.585,1.875-1.17,3.721t-1.086,3.473q-.5,1.627-.836,2.674H15.9q-.334-1.1-.864-2.757t-1.142-3.5q-.614-1.846-1.226-3.694T11.551,5.183q-.5-1.543-.808-2.536a7.3,7.3,0,0,1-.306-1.158A.56.56,0,0,1,10.771.91a5.217,5.217,0,0,1,.836-.248V0H1.411V.662c.259,0,.446.2.557.606q.055.165.446,1.378t1,3.06Q4.029,7.554,4.81,9.869l.421,1.249a1.008,1.008,0,0,1-.965,1.325H0l1.114,4.411H6.439a1.018,1.018,0,0,1,.966.692q.28.84.553,1.668.752,2.289,1.365,4.08t.975,2.894A10.646,10.646,0,0,1,10.66,27.4q0,.552-.334.689a5.486,5.486,0,0,1-.78.248V29H21.58v-.662q-1.226,0-1.226-.772a15.285,15.285,0,0,1,.669-2.536q.669-2.15,1.616-5.072t1.95-6.092q1-3.17,1.671-5.6h.112q.779,2.757,1.7,5.872T29.8,20.013q.807,2.758,1.365,4.824a13.7,13.7,0,0,1,.557,2.729q0,.608-1.114.772V29H42.194v-.662a4.829,4.829,0,0,1-.753-.165q-.362-.11-.362-.606a11.155,11.155,0,0,1,.362-1.24q.363-1.129.975-2.922t1.365-4.052q.3-.9.614-1.814a1.019,1.019,0,0,1,.964-.684h5.526Z"
+          />
+        </symbol>
+        <symbol id="exclamation">
+          <defs>
+            <clipPath id="q190a">
+              <path
+                d="M6.3 7.7V3.5h1.4v4.2zm0 2.8V9.1h1.4v1.4zM0 7c0 3.864 3.136 7 7 7s7-3.136 7-7-3.136-7-7-7-7 3.136-7 7z"
+              />
+            </clipPath>
+          </defs>
+          <g>
+            <g>
+              <g>
+                <path
+                  d="M6.3 7.7V3.5h1.4v4.2zm0 2.8V9.1h1.4v1.4zM0 7c0 3.864 3.136 7 7 7s7-3.136 7-7-3.136-7-7-7-7 3.136-7 7z"
+                />
+              </g>
+            </g>
+          </g>
+        </symbol>
+        <symbol id="search" viewBox="0 0 18 18">
+          <path
+            fill="#42434b"
+            d="M2 6.5C2 4.01 4.01 2 6.5 2S11 4.01 11 6.5 8.99 11 6.5 11 2 8.99 2 6.5zm9.71 4.5l-.28-.27A6.471 6.471 0 0 0 13 6.5 6.5 6.5 0 1 0 6.5 13c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L17.49 16l-4.99-5z"
+          />
+        </symbol>
+        <symbol id="plus" viewBox="0 0 14 14">
+          <g xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path
+                fill="#1428e5"
+                d="M13.667 7.952H7.952v5.715H6.048V7.952H.333V6.048h5.715V.333h1.904v5.715h5.715v1.904z"
+              />
+            </g>
+          </g>
+        </symbol>
+        <symbol id="sorting-arrow" viewBox="0 0 11 6">
+          <g transform="rotate(-90 5.5 3)">
+            <path
+              fill="#1428e5"
+              d="M8.543 6.825L4.885 3 8.543-.825 7.417-2 2.625 3l4.792 5z"
+            />
+          </g>
+        </symbol>
+        <symbol id="dashboard" viewBox="0 0 16 17">
+          <g xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path
+                d="M0 1.55C0 .976.466.51 1.04.51h5.41v8.647H0zM8.75.51h5.41c.574 0 1.04.466 1.04 1.04v4.16H8.75zM0 11.02h6.45v5.2H1.04A1.04 1.04 0 0 1 0 15.18zm8.75-3.446h6.45v7.606a1.04 1.04 0 0 1-1.04 1.04H8.75z"
+              />
+            </g>
+          </g>
+        </symbol>
+        <symbol id="wallets" viewBox="0 0 16 16">
+          <g xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path
+                d="M0 1.55C0 .976.466.51 1.04.51h12.721c.574 0 1.04.466 1.04 1.04v3.341c.243.19.399.486.399.819v5.2c0 .333-.156.629-.399.819v3.341a1.04 1.04 0 0 1-1.04 1.04H1.04A1.04 1.04 0 0 1 0 15.07zm5.076 10.92c0 .574.465 1.04 1.04 1.04h8.675v-1.773a1.035 1.035 0 0 1-.631.213H8.077a1.04 1.04 0 0 1-1.04-1.04v-5.2c0-.574.466-1.04 1.04-1.04h6.083c.237 0 .456.08.631.213V3.11H6.116a1.04 1.04 0 0 0-1.04 1.04zm4.008-3.332c0 .287.233.52.52.52h1.467a.52.52 0 0 0 .52-.52V7.49a.52.52 0 0 0-.52-.52H9.604a.52.52 0 0 0-.52.52z"
+              />
+            </g>
+          </g>
+        </symbol>
+        <symbol id="transactions" viewBox="0 0 16 16">
+          <g xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path
+                d="M0 1.55C0 .976.466.51 1.04.51h13.12c.574 0 1.04.466 1.04 1.04v13.12a1.04 1.04 0 0 1-1.04 1.04H1.04A1.04 1.04 0 0 1 0 14.67zm2.473 11.444h1.92V4.212h-1.92zm4.167-.01h1.92V6.81H6.64zm4.167.01h1.92V9.41h-1.92z"
+              />
+            </g>
+          </g>
+        </symbol>
+        <symbol id="history" viewBox="0 0 15 17">
+          <g xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path
+                d="M0 9.053a7.202 7.202 0 0 1 5.462-6.986L5.644.778A.312.312 0 0 1 5.953.51h2.512c.156 0 .288.115.309.27l.177 1.289a7.202 7.202 0 0 1 5.455 6.984 7.2 7.2 0 0 1-7.203 7.198A7.2 7.2 0 0 1 0 9.053zm6.243.984h1.92v-5.48h-1.92zm1.92-1.341v1.343H6.248l5.149 1.874.657-1.804z"
+              />
+            </g>
+          </g>
+        </symbol>
+        <symbol id="convert" viewBox="0 0 15 16">
+          <g xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path
+                d="M0 1.04C0 .466.466 0 1.04 0h13.02c.574 0 1.04.466 1.04 1.04v13.52a1.04 1.04 0 0 1-1.04 1.04H1.04A1.04 1.04 0 0 1 0 14.56zm1.998 2.61c0 .287.233.52.52.52h9.99a.52.52 0 0 0 .52-.52V2.008a.52.52 0 0 0-.52-.52h-9.99a.52.52 0 0 0-.52.52zm1.705 4.964c0 .287.233.52.52.52h1.648a.52.52 0 0 0 .52-.52V6.976a.52.52 0 0 0-.52-.52H4.223a.52.52 0 0 0-.52.52zm4.93 0c0 .287.234.52.52.52h1.649a.52.52 0 0 0 .52-.52V6.976a.52.52 0 0 0-.52-.52H9.154a.52.52 0 0 0-.52.52zm-4.93 4.403c0 .288.233.52.52.52h1.648a.52.52 0 0 0 .52-.52V11.37a.52.52 0 0 0-.52-.52H4.223a.52.52 0 0 0-.52.52zm4.93 0c0 .288.234.52.52.52h1.649a.52.52 0 0 0 .52-.52V11.37a.52.52 0 0 0-.52-.52H9.154a.52.52 0 0 0-.52.52z"
+              />
+            </g>
+          </g>
+        </symbol>
+        <symbol id="contacts" viewBox="0 0 16 17">
+          <g xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path
+                d="M8 10.51c2.67 0 8 1.34 8 4v2H0v-2c0-2.66 5.33-4 8-4zm0-2c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"
+              />
+            </g>
+          </g>
+        </symbol>
+        <symbol id="setting" viewBox="0 0 16 17">
+          <g xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path
+                d="M5.989 8.451c0-1.08.866-1.95 1.93-1.95 1.062 0 1.928.87 1.928 1.95a1.94 1.94 0 0 1-1.929 1.95 1.94 1.94 0 0 1-1.93-1.95zM4.977 3.099L3.52 1.995a.312.312 0 0 0-.409.028l-1.59 1.59a.312.312 0 0 0-.03.409l1.102 1.463a6.087 6.087 0 0 0-.515 1.23l-1.809.25A.312.312 0 0 0 0 7.273v2.249c0 .155.114.287.268.309l1.78.251c.124.448.297.875.513 1.275l-1.076 1.42a.312.312 0 0 0 .028.408l1.59 1.59c.11.11.285.123.409.03L4.9 13.76a6.04 6.04 0 0 0 1.318.56l.235 1.708c.02.154.153.27.309.27h2.241a.312.312 0 0 0 .309-.27l.238-1.688c.477-.133.93-.323 1.352-.562l1.364 1.034a.312.312 0 0 0 .41-.028l1.59-1.59a.312.312 0 0 0 .029-.408L13.253 11.4c.227-.413.408-.855.535-1.32l1.73-.237a.312.312 0 0 0 .27-.31V7.285a.312.312 0 0 0-.269-.309l-1.757-.248a6.088 6.088 0 0 0-.537-1.275l1.077-1.422a.312.312 0 0 0-.028-.409l-1.59-1.59a.312.312 0 0 0-.408-.03l-1.44 1.085a6.037 6.037 0 0 0-1.267-.518L9.324.78a.312.312 0 0 0-.31-.27h-2.24a.312.312 0 0 0-.31.269L6.21 2.584c-.433.127-.846.3-1.233.515z"
+              />
+            </g>
+          </g>
+        </symbol>
+        <symbol id="log-out" viewBox="0 0 16 14">
+          <path
+            d="M6.2,13.061H2.938A2.842,2.842,0,0,1,.862,12.2,2.84,2.84,0,0,1,0,10.122V2.938A2.842,2.842,0,0,1,.862.862,2.842,2.842,0,0,1,2.938,0H6.2a.312.312,0,0,1,.23.1.311.311,0,0,1,.1.23c0,.028,0,.1.01.2A2.415,2.415,0,0,1,6.546.8a1.731,1.731,0,0,1-.031.239.341.341,0,0,1-.1.2.3.3,0,0,1-.21.067H2.938a1.579,1.579,0,0,0-1.153.48,1.579,1.579,0,0,0-.48,1.153v7.184a1.579,1.579,0,0,0,.48,1.153,1.576,1.576,0,0,0,1.153.48H6.123l.117.01c.079.007.117.017.117.031s.028.032.082.057.078.054.071.091a.281.281,0,0,0,.021.139c0,.027,0,.1.011.2a2.582,2.582,0,0,1,0,.27,1.731,1.731,0,0,1-.031.239.343.343,0,0,1-.1.2A.308.308,0,0,1,6.2,13.061ZM9.8,12.735a.662.662,0,0,1-.653-.653V9.143H4.571a.662.662,0,0,1-.653-.653V4.571a.661.661,0,0,1,.653-.652H9.143V.979A.63.63,0,0,1,9.337.52a.642.642,0,0,1,.919,0l5.55,5.551a.64.64,0,0,1,0,.919l-5.55,5.55A.631.631,0,0,1,9.8,12.735Z"
+          />
+        </symbol>
+        <symbol id="close-icon" viewBox="0 0 14 14">
+          <g transform="rotate(-315 7 7)">
+            <path
+              fill="#1428e5"
+              d="M15 8.143H8.143V15H5.857V8.143H-1V5.857h6.857V-1h2.286v6.857H15v2.286z"
+            />
+          </g>
+        </symbol>
+        <symbol id="copy-icon" viewBox="0 0 13 16">
+          <path
+            d="M1.455 14.545h8.727V16H1.455A1.456 1.456 0 0 1 0 14.545V2.91h1.455zM13.09 3.335v8.301c0 .803-.652 1.455-1.455 1.455H4.364a1.456 1.456 0 0 1-1.455-1.455V1.455C2.91.653 3.561 0 4.364 0h5.392zm-.727 1.029L8.727.727v3.637z"
+          />
+        </symbol>
+        <symbol id="convert-icon" viewBox="0 0 24.951 7.876">
+          <g
+            xmlns="http://www.w3.org/2000/svg"
+            id="Combined_Shape"
+            data-name="Combined Shape"
+            transform="translate(24.951 0) rotate(90)"
+            stroke-miterlimit="10"
+          >
+            <path
+              d="M1.216,24.951V.936L.369,1.73,0,1.383,1.108.346h0L1.477,0,2.953,1.383l-.369.346L1.738.936V24.951Z"
+              stroke="none"
+            />
+            <path
+              d="M 1.737536549568176 24.95120048522949 L 1.215656638145447 24.95120048522949 L 1.215656638145447 0.9364302158355713 L 0.3694765865802765 1.729930281639099 L -3.406143150641583e-06 1.383460283279419 L 1.107776641845703 0.3458702564239502 L 1.107556581497192 0.3456602394580841 L 1.477036595344543 2.426147318601579e-07 L 2.95319652557373 1.383460283279419 L 2.584596633911133 1.729930281639099 L 1.737536549568176 0.9360702633857727 L 1.737536549568176 24.95120048522949 Z"
+              stroke="none"
+              fill="#1428e5"
+            />
+          </g>
+          <g
+            xmlns="http://www.w3.org/2000/svg"
+            id="Combined_Shape-2"
+            data-name="Combined Shape"
+            transform="translate(0 7.876) rotate(-90)"
+            fill="none"
+            stroke-miterlimit="10"
+          >
+            <path
+              d="M1.738,24.951V.936l.846.793.369-.346L1.845.346h0L1.476,0,0,1.383l.369.346L1.216.936V24.951Z"
+              stroke="none"
+            />
+            <path
+              d="M 1.737536549568176 24.95120048522949 L 1.215656638145447 24.95120048522949 L 1.215656638145447 0.9360702633857727 L 0.3685965836048126 1.729930281639099 L -3.406143150641583e-06 1.383460283279419 L 1.47615659236908 2.426147318601579e-07 L 1.845636606216431 0.3456602394580841 L 1.84541654586792 0.3458702564239502 L 2.95319652557373 1.383460283279419 L 2.583716630935669 1.729930281639099 L 1.737536549568176 0.9364302158355713 L 1.737536549568176 24.95120048522949 Z"
+              stroke="none"
+              fill="#1428e5"
+            />
+          </g>
+        </symbol>
+      </svg>
+    </div>
+
+    <!-- preloader -->
+    <!-- <div class="preloader" id="loader">
+      <div class="preloader-scale-ripple">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div> -->
+
+    <!-- HEADER -->
+    <header class="header">
+      <!-- logo -->
+      <div class="logo">
+        <a href="./dashboard.html" class="logo__link">
+          <svg class="logo__svg" width="52" height="29">
+            <use xlink:href="#logo"></use>
+          </svg>
+        </a>
+      </div>
+      <!-- title-page -->
+      <h1 class="header__title-page">Convert</h1>
+
+      <div class="header__search">
+        <!-- form search -->
+        <form action="" id="search" class="search">
+          <!-- on "is-active" -->
+          <input
+            type="search"
+            name="search"
+            class="search__input"
+            placeholder="Search…"
+            id="search-input"
+          />
+          <button class="search__button" aria-label="Искать">
+            <svg width="18" height="18">
+              <use xlink:href="#search"></use>
+            </svg>
+          </button>
+
+          <!-- on "is-active" -->
+          <div class="search__result">
+            <ul class="search__result-list">
+              <li class="search__result-item">
+                <a href="#">My wallets</a>
+                <p>
+                  bitcoin-I know words. I have the best words. It’s about making
+                  placeholder text great again. That’s what people want, they
+                  want placeholder text to be great again. Lorem Ipsum is the
+                  single greatest threat. We are not - we are not keeping up
+                  with other websites.
+                </p>
+              </li>
+              <li class="search__result-item">
+                <a href="#">My wallets</a>
+                <p>
+                  bitcoin-I know words. I have the best words. It’s about making
+                  placeholder text great again. That’s what people want, they
+                  want placeholder text to be great again. Lorem Ipsum is the
+                  single greatest threat. We are not - we are not keeping up
+                  with other websites.
+                </p>
+              </li>
+              <li class="search__result-item">
+                <a href="#">My wallets</a>
+                <p>
+                  bitcoin-I know words. I have the best words. It’s about making
+                  placeholder text great again. That’s what people want, they
+                  want placeholder text to be great again. Lorem Ipsum is the
+                  single greatest threat. We are not - we are not keeping up
+                  with other websites.
+                </p>
+              </li>
+              <li class="search__result-item">
+                <a href="#">My wallets</a>
+                <p>
+                  bitcoin-I know words. I have the best words. It’s about making
+                  placeholder text great again. That’s what people want, they
+                  want placeholder text to be great again. Lorem Ipsum is the
+                  single greatest threat. We are not - we are not keeping up
+                  with other websites.
+                </p>
+              </li>
+            </ul>
+          </div>
+        </form>
+        <!-- button  Support-->
+        <a href="#" class="button header__button type-link">
+          <svg width="14" height="14">
+            <use xlink:href="#exclamation"></use>
+          </svg>
+          Support
+        </a>
+      </div>
+
+      <a href="./settings.html" class="header__profile">
+        <p class="header__username" id="UserName">{{UserName}}</p>
+        <div class="header__avatar">
+          <img src="./img/icon/avatar.svg" alt="user" />
+        </div>
+      </a>
+
+      <!-- burger-menu-->
+      <input id="burger" class="burger-input" type="checkbox" />
+      <div class="burger-menu">
+        <label for="burger" class="burger-menu__label">
+          <svg viewBox="32 32 36 36" xmlns="http://www.w3.org/2000/svg">
+            <path class="burger-menu__line--1" d="M0 70l28-28c2-2 2-2 7-2h64" />
+            <path class="burger-menu__line--2" d="M0 50h99" />
+            <path class="burger-menu__line--3" d="M0 30l28 28c2 2 2 2 7 2h64" />
+          </svg>
+        </label>
+      </div>
+
+      <!-- header-menu-->
+      <nav class="header__menu">
+        <ul class="header__list">
+          <li class="header__item">
+            <a href="./dashboard.html" class="header__link">Dashboard</a>
+          </li>
+          <li class="header__item">
+            <a href="./wallets.html" class="header__link">Wallets</a>
+          </li>
+          <li class="header__item">
+            <a href="./transactions.html" class="header__link">Transactions</a>
+          </li>
+          <li class="header__item">
+            <a href="./history.html" class="header__link">History</a>
+          </li>
+          <li class="header__item">
+            <a href="./convert.html" class="header__link">Convert</a>
+          </li>
+          <li class="header__item">
+            <a href="./contacts.html" class="header__link">Contacts</a>
+          </li>
+          <li class="header__item">
+            <a href="./settings.html" class="header__link">Settings</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- MENU -->
+    <section class="main-menu">
+      <div class="logo">
+        <a href="./dashboard.html" class="logo__link">
+          <svg class="logo__svg" width="52" height="29">
+            <use xlink:href="#logo"></use>
+          </svg>
+        </a>
+      </div>
+
+      <nav class="main-menu__nav">
+        <ul class="main-menu__list">
+          <li class="main-menu__item">
+            <a href="./dashboard.html" class="main-menu__link">
+              <svg width="16" height="16">
+                <use xlink:href="#dashboard"></use>
+              </svg>
+              <span class="main-menu__name">Dashboard</span>
+
+              <!-- состояние уведомлений вкл "state-on" -->
+              <span class="main-menu__notification state--on">9+</span>
+            </a>
+          </li>
+          <li class="main-menu__item">
+            <a href="./wallets.html" class="main-menu__link">
+              <svg width="16" height="16">
+                <use xlink:href="#wallets"></use>
+              </svg>
+              <span class="main-menu__name">Wallets</span>
+              <!-- состояние уведомлений вкл "state-on" -->
+              <span class="main-menu__notification state--on">1</span>
+            </a>
+          </li>
+          <li class="main-menu__item">
+            <a href="./transactions.html" class="main-menu__link">
+              <svg width="16" height="16">
+                <use xlink:href="#transactions"></use>
+              </svg>
+              <span class="main-menu__name">Transactions</span>
+              <!-- состояние уведомлений вкл "state-on" -->
+              <span class="main-menu__notification state--on">1</span>
+            </a>
+          </li>
+          <li class="main-menu__item">
+            <a href="./history.html" class="main-menu__link">
+              <svg width="17" height="19">
+                <use xlink:href="#history"></use>
+              </svg>
+              <span class="main-menu__name">History</span>
+              <!-- состояние уведомлений вкл "state-on" -->
+              <span class="main-menu__notification state--on">1</span>
+            </a>
+          </li>
+          <li class="main-menu__item">
+            <a href="./convert.html" class="main-menu__link is-active">
+              <svg width="16" height="16">
+                <use xlink:href="#convert"></use>
+              </svg>
+              <span class="main-menu__name">Convert</span>
+              <!-- состояние уведомлений вкл "state-on" -->
+              <span class="main-menu__notification state--on">1</span>
+            </a>
+          </li>
+          <li class="main-menu__item">
+            <a href="./contacts.html" class="main-menu__link">
+              <svg width="16" height="16">
+                <use xlink:href="#contacts"></use>
+              </svg>
+              <span class="main-menu__name">Contacts</span>
+              <!-- состояние уведомлений вкл "state-on" -->
+              <span class="main-menu__notification state--on">1</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="main-menu__down">
+        <ul class="main-menu__list">
+          <li class="main-menu__item">
+            <a href="./settings.html" class="main-menu__link">
+              <svg class="logo__svg" width="16" height="17" viewBox="0 0 16 17">
+                <use xlink:href="#setting"></use>
+              </svg>
+              <span class="main-menu__name">Setting</span>
+              <!-- состояние уведомлений вкл "state-on" -->
+              <span class="main-menu__notification state--on">1</span>
+            </a>
+          </li>
+          <li class="main-menu__item">
+            <a href="./settings.html" class="main-menu__link">
+              <svg class="logo__svg" width="16" height="17" viewBox="0 0 16 17">
+                <use xlink:href="#log-out"></use>
+              </svg>
+              <span class="main-menu__name">log-out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CONTENT -->
+    <section class="content">
+      <div class="wrap">
+        <div class="convert">
+          <div class="division">
+            <form action="" class="convert__form">
+              <label for="" class="convert__label">
+                <p class="convert__text">from</p>
+                <select
+                  name="convert-select-from"
+                  id="convert-select-from"
+                  class="custom-select convert__select"
+                >
+                  <option value="btc">Bitcoin (BTC)</option>
+                  <option value="eth">Ethereum (ETH)</option>
+                  <option value="ltc">Litecoin (LTC)</option>
+                </select>
+              </label>
+              <label for="" class="convert__label">
+                <p class="convert__text">to</p>
+                <select
+                  name="convert-select-to"
+                  id="convert-select-to"
+                  class="custom-select convert__select"
+                >
+                  <option value="btc">Bitcoin (BTC)</option>
+                  <option value="eth">Ethereum (ETH)</option>
+                  <option value="ltc">Litecoin (LTC)</option>
+                </select>
+              </label>
+              <label
+                for=""
+                class="convert__label convert__label-check is-correctly"
+              >
+                <p class="convert__text">Enter amount</p>
+                <input
+                  type="text"
+                  id="convert-input-from"
+                  class="convert__input-first input-gray"
+                  value="0.3333333333"
+                />
+                <input
+                  type="text"
+                  id="convert-input-to"
+                  class="convert__input-second input-gray"
+                  value="0.3333333333"
+                  readonly
+                />
+                <span class="convert__input-first-unit">btc</span>
+                <span class="convert__input-second-unit">usd</span>
+              </label>
+              <div class="convert__range">
+                <a href="#" class="button button-link convert__range-button">
+                  <svg
+                    width="10"
+                    height="6.175"
+                    style="transform: rotate(180deg);"
+                  >
+                    <use xlink:href="#sorting-arrow"></use>
+                  </svg>
+                  Max</a
+                >
+                <a href="#" class="button button-link convert__range-button">
+                  <svg width="10" height="6.175">
+                    <use xlink:href="#sorting-arrow"></use>
+                  </svg>
+                  Min</a
+                >
+              </div>
+              <div class="convert__exchange-fee exchange-fee">
+                <p class="exchange-fee_title">Exchange Fee</p>
+                <p class="exchange-fee_amount">
+                  0,34567890
+                  <span class="exchange-fee_unit">btc</span>
+                </p>
+                <p class="exchange-fee_equivalent">
+                  1.234,00
+                  <span class="exchange-fee_unit">usd</span>
+                </p>
+              </div>
+              <div class="convert__total total">
+                <p class="total_title">Total</p>
+                <p class="total_amount">
+                  3433
+                  <span class="total_unit">btc</span>
+                </p>
+                <p class="total_equivalent">
+                  1.345,00
+                  <span class="total_unit">usd</span>
+                </p>
+              </div>
+              <button class="button button-outline convert__button">
+                Convert
+              </button>
+            </form>
+
+            <div class="convert__history">
+              <p class="convert__history-title">History</p>
+
+              <div class="convert__history-card convert-history-card is-send">
+                <div class="convert-history-card__up">
+                  <p
+                    class="convert-history-card__text"
+                    id="convert-history-card-id"
+                  >
+                    <span class="convert-history-card__text-title">ID</span>
+                    234567890-098765432
+                  </p>
+                  <figure>
+                    <i class="convert-history-card__icon"></i>
+                  </figure>
+                  <span class="convert-history-card__date"
+                    >16:23, 12 dec 2018</span
+                  >
+                  <div class="convert-history-card__amount">
+                    <span class="convert-history-card__amount-in-wallet">
+                      0.009
+                      <span class="convert-history-card__currency">btc</span>
+                    </span>
+                    <span class="convert-history-card__amount-equivalent">
+                      3,345.78
+                      <span class="convert-history-card__currency">usd</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="convert-history-card__second">
+                  <p class="convert-history-card__text" id="history-exchange">
+                    <span class="convert-history-card__text-title"
+                      >Exchange</span
+                    >
+                    <span class="convert-history-card__value">1BTC</span>
+                    <figure>
+                      <svg width="25" height="8">
+                        <use xlink:href="#convert-icon"></use>
+                      </svg>
+                    </figure>
+                    <span class="convert-history-card__value"
+                      >3.567,99 USD</span
+                    >
+                  </p>
+                </div>
+                <div class="convert-history-card__down">
+                  <p class="convert-history-card__text" id="history-from">
+                    <span class="convert-history-card__text-title">From</span>
+                    Litecoin (LTC)
+                  </p>
+                  <p class="convert-history-card__text" id="history-to">
+                    <span class="convert-history-card__text-title">To</span>
+                    Bitcoin (BTC)
+                  </p>
+                </div>
+              </div>
+              <div
+                class="convert__convert-history-card convert-history-card is-received"
+              >
+                <div class="convert-history-card__up">
+                  <p
+                    class="convert-history-card__text"
+                    id="convert-history-card-id"
+                  >
+                    <span class="convert-history-card__text-title">ID</span>
+                    234567890-098765432
+                  </p>
+                  <figure>
+                    <i class="convert-history-card__icon"></i>
+                  </figure>
+                  <span class="convert-history-card__date"
+                    >16:23, 12 dec 2018</span
+                  >
+                  <div class="convert-history-card__amount">
+                    <span class="convert-history-card__amount-in-wallet">
+                      0.009
+                      <span class="convert-history-card__currency">btc</span>
+                    </span>
+                    <span class="convert-history-card__amount-equivalent">
+                      3,345.78
+                      <span class="convert-history-card__currency">usd</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="convert-history-card__second">
+                  <p class="convert-history-card__text" id="history-exchange">
+                    <span class="convert-history-card__text-title">
+                      Exchange
+                    </span>
+                    <span class="convert-history-card__value">1BTC</span>
+                    <figure>
+                      <svg width="25" height="8">
+                        <use xlink:href="#convert-icon"></use>
+                      </svg>
+                    </figure>
+                    <span class="convert-history-card__value"
+                      >3.567,99 USD</span
+                    >
+                  </p>
+                </div>
+                <div class="convert-history-card__down">
+                  <p class="convert-history-card__text" id="history-from">
+                    <span class="convert-history-card__text-title">From</span>
+                    Litecoin (LTC)
+                  </p>
+                  <p class="convert-history-card__text" id="history-to">
+                    <span class="convert-history-card__text-title">To</span>
+                    Bitcoin (BTC)
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="division">
+            <article class="my-wallet balance-is-there">
+              <form action="" class="my-wallet__form">
+                <div class="my-wallet__head">
+                  <i class="my-wallet__edit-button edit-button"></i>
+
+                  <!-- <span class="my-wallet__title">Bitcoin</span> -->
+                  <label class="my-wallet__title">
+                    <input
+                      type="text"
+                      class="my-wallet__title--input"
+                      value="Bitcoin"
+                    />
+                    <span class="my-wallet__title--maxlength">40 characters</span>
+                    <span class="my-wallet__title--error error"
+                      >incorrect name</span
+                    >
+                  </label>
+
+                  <a
+                    href="./wallet-inside.html/?wallet={{Wallet_Name}}"
+                    class="my-wallet__icon"
+                  >
+                    <i class="icon-btc"></i>
+                  </a>
+                  <button class="my-wallet__button-edit-title button">
+                    <svg width="24" height="24">
+                      <use xlink:href="#done-icon"></use>
+                    </svg>
+                  </button>
+                </div>
+                <div class="my-wallet__content">
+                  <span
+                    class="my-wallet__main-int"
+                    coind="{coind}"
+                    attr="w1allet_b1alance"
+                  >
+                    1023.73
+                    <span class="my-wallet__sub">btc</span>
+                  </span>
+                  <span class="my-wallet__int" attr="w2allet_b2alance">
+                    3,345.78
+                    <span class="my-wallet__sub">usd</span>
+                  </span>
+                </div>
+                <div class="my-wallet__bottom">
+                  <span class="my-wallet__text">Address</span>
+                  <div class="my-wallet__address">
+                    <span>123456dfghj23456lkjhg567834567jhg</span>
+                    <i class="my-wallet__tooltip tooltip-copy">Сopied</i>
+                    <i class="my-wallet__copy-button copy-button">
+                      <svg class="logo__svg" width="13" height="16">
+                        <use xlink:href="#copy-icon"></use>
+                      </svg>
+                    </i>
+                  </div>
+                  <div class="my-wallet__options">
+                    <button
+                      class="my-wallet__button button button-outline-gray btn-wallet-dublicate"
+                    >
+                      Dublicate
+                    </button>
+                    <button
+                      class="my-wallet__button button modal__button btn-wallet-delete"
+                    >
+                      Delete
+                    </button>
+                    <a
+                      href="#"
+                      class="my-wallet__button button modal__button modal-trigger btn-wallet-send"
+                      style="display: none;"
+                      data-modal="#send"
+                    >
+                      Send
+                    </a>
+                  </div>
+                </div>
+              </form>
+              <!-- <div class="my-wallet__content">
+
+                <p class="my-wallet__currency-balance">
+                <p coind="{coind}" attr="w1allet_b1alance" class="my-wallet__currency-balance">213123</p>
+                 <span class="my-wallet__unit">{{coin_type}}</span>
+                </p>
+
+                <p class="my-wallet__equivalent" attr="w2allet_b2alance">
+                  <span class="my-wallet__unit">usd</span>
+                </p>
+                <div class="my-wallet__last-transaction">
+                  <p class="my-wallet__last-transaction-title">
+                    Last transaction:
+                  </p>
+                  <span class="my-wallet__last-transaction-date">
+                    {{last_trunsaction_date}}
+                      </span>
+                  <span class="my-wallet__last-transaction-amount">
+                    {{trunsaction_value}}
+                        <span class="my-wallet__unit">{{coin_type}}</span>
+                      </span>
+                </div>
+              </div> -->
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- modal -->
+    <div class="modal-overlay">
+      <div class="modal" id="add-contact">
+        <a class="modal__close">
+          <svg width="14" height="14">
+            <use xlink:href="#close-icon"></use>
+          </svg>
+        </a>
+
+        <div class="modal__content">
+          <p class="modal__title">Add contact</p>
+          <p class="modal__text text-blue">
+            Check all the details and confirm the transaction
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!-- Include Handlebars from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <!-- Owl carousel -->
+    <script src="js/libs/owl.carousel.min.js"></script>
+    <script src="js/libs/custom-select.js"></script>
+    <script src="js/libs/simple-scrollbar.js"></script>
+    <script src="js/libs/foopicker.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/requests.js"></script>
+  </body>
+</html>
