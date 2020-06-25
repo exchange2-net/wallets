@@ -37,38 +37,38 @@ var TMPMailData struct {
 
 var logIN_users struct {
 	data map[uint64]string
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex //mutex for the concurrent map
 }
 
-//TODO convert to binary number map key
+//TODO converting to a binary number map key
 var users struct {
 	data map[string] User
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex // mutex for the concurrent map
 }
 
 var LoginRedirect struct {
 	data map[string]string
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex // mutex for the concurrent map
 }
 
 var UsersLoginIn struct {
 	data map[uint64]string
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex // mutex for the concurrent map
 }
 
 var WaitingForGoogle struct {
 	data map[string] User
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex // mutex for the concurrent map
 }
 
 var ErrorTryingLogin struct{
 	data map[uint64]ErrorTrying
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex // mutex for the concurrent map
 }
 
 var BannedUsers struct {
 	data map[uint64]string
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex // mutex for the concurrent map
 }
 
 var sendAuth sync.Mutex
@@ -197,7 +197,7 @@ func handleGoogleCallback(w http.ResponseWriter, r *http.Request) {
 		if is_ok{
 			WaitingForGoogle.mux.Lock()
 			UserAgent = WaitingForGoogle.data[result.Email].UserAgent
-			delete(WaitingForGoogle.data, result.Email) //delete user from map
+			delete(WaitingForGoogle.data, result.Email) //delete user from the map
 			WaitingForGoogle.mux.Unlock()
 
 			users.mux.Lock()
@@ -271,7 +271,7 @@ func handleGoogleCallback(w http.ResponseWriter, r *http.Request) {
 
 /*
 func handleGoogleAuth
-function set cookie and said other servers about user login
+function sets  cookie and says to other servers about user login
  */
 func handleGoogleAuth(Email string, w http.ResponseWriter) http.ResponseWriter {
 	users.mux.Lock()
@@ -449,7 +449,7 @@ func get_rial_ip(w http.ResponseWriter, r *http.Request) string {
 		}else{
 			realIP = real2IP
 			if real2IP != real3IP {
-				//то что???
+				//...
 			}
 		}
 	}
@@ -457,7 +457,7 @@ func get_rial_ip(w http.ResponseWriter, r *http.Request) string {
 }
 /*
 function clear_mail
-check user mail. Return Truse ot False
+check user mail. Return True or False
  */
 func clear_mail(email string) bool{
 	expression := regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
@@ -664,7 +664,7 @@ func handleAuth(w http.ResponseWriter, r *http.Request) {
 						return
 					}
 				} else {
-					//User Not Exist
+					//User Doesn't Exist
 					ErrorTryingLogin.mux.Lock()
 					ErrorTryingLogin.data[user.Id] = ErrorTrying{ countTrys: (ErrorTryingLogin.data[user.Id].countTrys+1), Email:user.Email}
 					ErrorTryingLogin.mux.Unlock()
@@ -676,7 +676,7 @@ func handleAuth(w http.ResponseWriter, r *http.Request) {
 				google_auth := false // Enable or Disable google AUTH
 
 				if google_auth {
-					// добавить парралельность процесса вынести в функцию бекраунде и передать данные
+					//add a parallel process to make backgrounds of function and pass data
 					redirect_url := handleGoogleLogin(w, r)
 					user.UserAgent = UserAgent
 
@@ -727,7 +727,7 @@ func handleAuth(w http.ResponseWriter, r *http.Request) {
 }
 /*
 func handleReg
-registarate new User
+register a new user
  */
 func (usersStr *Users) handleReg(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -1085,7 +1085,7 @@ func sendToMailServer() {
 }
 
 func main() {
-	// make maps with without nil data
+	// make maps with no nil data
 	logIN_users.data = make(map[uint64]string)
 	users.data = make(map[string] User)
 	LoginRedirect.data = make(map[string]string)

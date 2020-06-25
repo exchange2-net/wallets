@@ -401,7 +401,7 @@ func loadRequests() {
 
 /*
 function readNextBytes
-the function is for return N bytes from the file 
+the function is for return N bytes from the file
 */
 func readNextBytes(file *os.File, number int) []byte {
 	bytes := make([]byte, number)

@@ -7,8 +7,8 @@ import (
 	"time"
 )
 
-//Path to go files folder
-var ServersPATH = "" //full path to current folder
+//Path to go to the files folder
+var ServersPATH = "" //full path to a current folder
 var servers = map[int] string{}
 var serversArgs = map[int] int{}
 var haveArgs = map[string] int{} //programs that need args
@@ -18,9 +18,9 @@ var ServersProcces = map[string] string{}
 func main() {
 	os.Chdir(ServersPATH) // change execute dir
 	var argFlag bool
-	ServersList := ServersName() // get list of Go files
+	ServersList := ServersName() //get a list of Go files
 	ServersListArgs := ServersArgs()  // get ARGS list
-	ServersListHaveArgs := ServersHaveArgs() // get list of programs that need args
+	ServersListHaveArgs := ServersHaveArgs() //get a list of programs that need args
 
 	//starting Go files
 	for _, serverName := range ServersList {
@@ -73,7 +73,7 @@ func main() {
 
 /*
 function rerun_server
-function rerun stopped programs
+function to  rerun stopped programs
  */
 func rerun_server(flag int, serverName string, CurrentArgs string) {
 	fmt.Println("Re RUN SERVER - ", serverName, CurrentArgs)
@@ -98,7 +98,7 @@ func rerun_server(flag int, serverName string, CurrentArgs string) {
 
 /*
 function ServersName
-function initialize list of Go programs
+function to initialize the list of Go programs
  */
 func ServersName() map[int]string{
 	servers[0] = "SupportServer.go"
@@ -112,7 +112,7 @@ func ServersName() map[int]string{
 
 /*
 function ServersArgs
-function initialize list of ARGS
+function to  initialize the list of ARGS
 */
 func ServersArgs() map[int]int {
 	return serversArgs
@@ -120,7 +120,7 @@ func ServersArgs() map[int]int {
 
 /*
 function ServersArgs
-function initialize list of programs that need args
+function to initialize the list of programs that need args
 */
 func ServersHaveArgs() map[string]int{
 	return haveArgs

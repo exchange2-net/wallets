@@ -20,9 +20,9 @@ import (
 	"time"
 )
 
-var sndTransactionAnswer *zmq.Socket //ZMQ, socket variable / send transaction result to Wallets Server
-var sndBalance *zmq.Socket //ZMQ, socket variable // if we have error in trunsuction we return coins
-var rcvTransaction *zmq.Socket //ZMQ, socket variable // recive request form Wallets server
+var sndTransactionAnswer *zmq.Socket //ZMQ, socket variable / send the transaction result to the Wallets Server
+var sndBalance *zmq.Socket //ZMQ, socket variable // if we have an error in transaction we return coins
+var rcvTransaction *zmq.Socket //ZMQ, socket variable // receive a request form the Wallets server
 
 /*
 function sendRawTransaction
@@ -53,7 +53,7 @@ func sendRawTransaction(value *big.Int, gasLimit uint64, gasPrice *big.Int, priv
 	if err != nil {
 		return ""
 	}
-	toAddress := common.HexToAddress(sndTo) // convert reciver addr
+	toAddress := common.HexToAddress(sndTo) //convert receiver address
 	var data []byte
 	tx := types.NewTransaction(nonce, toAddress, value, gasLimit, gasPrice, data) // Create new Transaction
 	chainID, err := client.NetworkID(context.Background())
@@ -81,7 +81,7 @@ func sendRawTransaction(value *big.Int, gasLimit uint64, gasPrice *big.Int, priv
 
 /*
 function listen_wallet
-function listening socket for request to make new transaction
+function listening socket for request to make a new transaction
 */
 func listen_wallet() {
 	poller := zmq.NewPoller()
@@ -138,7 +138,7 @@ func main() {
 	err := sndTransactionAnswer.Bind(fmt.Sprintf("%v%v", LocalConfig.LocalTcpIpAddr, 7414))
 	checkError(err)
 
-	rcvTransaction, _ = zmq.NewSocket(zmq.PULL)  //create new socket for reciving requests from Wallet server
+	rcvTransaction, _ = zmq.NewSocket(zmq.PULL)  //create new socket for receiving requests from the  Wallet server
 	defer rcvTransaction.Close()
 	rcvTransaction.SetRcvhwm(1100000)
 	rcvAddress := fmt.Sprintf("%v%v", LocalConfig.LocalTcpIpAddr, 7204)

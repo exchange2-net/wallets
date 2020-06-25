@@ -207,25 +207,25 @@ func getBlockETH(blockNum string) string {
 
 		// do not work with 0 transaction value
 		if amount > 0 {
-			//проверяем на правильность тразнзакцию
+			//пcheck for correct transaction
 			if len(transaction.Hash) != 66 {
 				continue
 			}
-			//проверяем добавляли ли мы транзакцию в ожидающие транзакции
+			//check if we have added a transaction to pending transactions
 			PendingTransactions.mux.Lock()
 			_, ok := PendingTransactions.data[transaction.Hash];
 			PendingTransactions.mux.Unlock()
 			if ok {
 				continue
 			}
-			//проверяем добавляли ли мы баланс на акк. пользователю
+			//check if we added the balance to the user account
 			ConfirmedTransactions.mux.Lock()
 			_, ok2 := ConfirmedTransactions.data[transaction.Hash];
 			ConfirmedTransactions.mux.Unlock()
 			if ok2 {
 				continue
 			}
-			//finding ours users' addresses and add to Pending map
+			//finding our users' addresses and adding to the Pending map
 			UsersHasAddr.mux.Lock()
 			for userID, userData := range UsersHasAddr.data {
 				for _, keysData := range userData {
@@ -248,7 +248,7 @@ func getBlockETH(blockNum string) string {
 
 /*
 function change_trnsctn_status
-loop in that will be checking number of confirmations
+loop is that it will check the number of confirmations
 */
 func change_trnsctn_statusETH() {
 	for {
@@ -427,7 +427,7 @@ func change_trnsctn_statusOUTETH() {
 
 /*
 function check_transuction
-function that search broken transactions and count confirmations
+function that searches broken transactions and counts confirmations
 */
 func check_transuctionETH(blockNum string, cmp_trnsctn TransactionsTmp) (bool, uint64) {
 	request_TRN := fmt.Sprintf("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\":[\"%s\", true],\"id\":1}", blockNum)
@@ -531,7 +531,7 @@ func check_transuctionETH(blockNum string, cmp_trnsctn TransactionsTmp) (bool, u
 
 /*
 function readNextBytes
-function return N bytes from file
+function returns N bytes from file
 */
 func readNextBytesETH(file *os.File, number int) []byte {
 	bytes := make([]byte, number)
@@ -548,7 +548,7 @@ func readNextBytesETH(file *os.File, number int) []byte {
 
 /*
 function addFunds
-search pending address in user address list
+search a pending address in the user address list
 call function addToBalance
 */
 func addFundsETH(address string, funds uint64) {
@@ -578,7 +578,7 @@ func toHex(i uint64) string {
 
 /*
 function loadLastBlock
-load last processed block from database
+load the last processed block from database
 */
 func loadLastBlockETH() string {
 	b, err := ioutil.ReadFile("../Ethereum/lastETHBlock.log")
@@ -591,7 +591,7 @@ func loadLastBlockETH() string {
 
 /*
 function saveLastBlock
-saving last processed block in database
+saving the last processed block in database
 */
 func saveLastBlockETH(block string) {
 	// If the file doesn't exist, create it, or append to the file
@@ -836,7 +836,7 @@ func LoadConfirmedTransactionsOUTETH() {
 
 /*
 function save_Transaction
-saving user transaction in database
+saving the user transaction to database
 sending Tx ata to the wallets server
 */
 func save_TransactionETH(transaction TransactionsTmp, Blocktime string, userID uint64, InOrOut int, isLoad int) {
@@ -909,7 +909,7 @@ func load_TransactionsOUTETH() {
 
 /*
 function generateTrHbuff
-converting transaction info to binary type and sending it to Wallsets server
+converting the transaction info to a binary type and sending it to Wallets server
 */
 func generateTrHbuff(transaction UserTrunsaction) {
 	buf := make([]byte, 198)
@@ -939,7 +939,7 @@ func generateTrHbuff(transaction UserTrunsaction) {
 
 /*
 function addNewUserToMap
-add new user address to address list
+add a new user address to the address list
 */
 func addNewUserToMap(address string, privateKey string, userId uint64) {
 	var tmp TMPstruct
@@ -967,7 +967,7 @@ func addNewUserToMap(address string, privateKey string, userId uint64) {
 
 /*
 function rcvnewAddr
-handling requests from Wallet server for add new user address to address list
+handling requests from the Wallet server for adding new user address to the address list
 */
 func rcvnewAddr() {
 	poller := zmq.NewPoller()
@@ -1252,7 +1252,7 @@ func writeDataToFileETH(listTransactions []byte, userId uint16, dataFiles *Stora
 /*
 function readMapData
 args: storage
-function read data from storage and write it to binary array
+function reads data from a storage and writes it to a binary array
 */
 func readMapData(dataStorage *Storage) {
 	var userId uint64
@@ -1682,8 +1682,8 @@ func loadUsersWalletsETH() {
 	}
 	fi, err := file.Stat()
 	if err != nil {
-		// Could not obtain stat, handle error
-		log.Fatal("Could not obtain stat", err)
+		// Failed to get stat, handle error
+		log.Fatal("Failed to get stat: ", err)
 	}
 	if err != nil {
 		log.Fatal(err)

@@ -43,28 +43,28 @@ var file10klog *os.File
 var globalCounter int
 var tcpPairs[1000]Pairs.Pair
 var delimiter[1000]uint64
-var authSessions [10000]string //TODO make it 100k ? make it as service so you can run thousands of servers with users
+var authSessions [10000]string //TODO make it 100k? make it as a service so you can run thousands of servers with users
 
 //Maps
 //var currencies[100][10000]uint64
 var currencies struct{
 	data [100][10000]uint64
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex // mutex for the concurrent map
 }
 
 var CoinsPriceUSD struct {
 	data map[uint64]float64
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex // mutex for the concurrent map
 }
 
 var walletDelimetrMap struct {
 	data [1000]uint64
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex // mutex for the concurrent map
 }
 
 var clients struct {
 	data map[string]Session
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex // mutex for the concurrent map
 }
 
 //channels
@@ -122,7 +122,7 @@ type Message struct{
 }
 /*
 function readAccounsBalance
-read user balance from database and write it to map
+read the user balance from the database and write it to the map
  */
 func readAccounsBalance(fileName string) {
 	file, err := os.Open(fileName)
@@ -134,7 +134,7 @@ func readAccounsBalance(fileName string) {
 
 	fi, err := file.Stat()
 	if err != nil {
-		log.Fatal("Could not obtain stat", err)
+		log.Fatal("Failed to get stats: ", err)
 	}
 
 	for i := int64(0); i < fi.Size()/18; i++ {
@@ -154,7 +154,7 @@ func readAccounsBalance(fileName string) {
 
 /*
 function readNextBytes
-function return N bytes from file
+function returns N bytes from the file
  */
 func readNextBytes(file *os.File, number int) []byte {
 	bytes := make([]byte, number)
@@ -348,7 +348,7 @@ func get_current_Сourse() {
 
 /*
 function get_current_course
-Get from coinmarketcap API coins to USD data
+Get coins from coinmarketcap API to USD data
  */
 func get_current_course() {
 	client := &http.Client{}
@@ -402,7 +402,7 @@ func get_course() {
 }
 
 func main() {
-	// make maps with without nil data
+	// make maps with no zero data
 	CoinsPriceUSD.data = make(map[uint64]float64)
 	//walletDelimetrMap.data = make(map[uint64]uint64)
 	clients.data = make(map[string]Session)
@@ -503,7 +503,7 @@ func main() {
 
 /*
 function CheckBalance
-receive from Wallet server request to send coins.
+receive a request to send coins from the Wallet server.
 Check balance and subtract from the balance coins
  */
 func CheckBalance() {

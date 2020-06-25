@@ -142,7 +142,7 @@ func CreateInputs(client *rpcclient.Client, userId uint64, Value uint64, Private
 	}
 	usersTrnData.mux.Unlock()
 
-	if (ValueCMP - Value) != ValueCMP { //if not enough money in user' inputs we will use cold  wallet inputs
+	if (ValueCMP - Value) != ValueCMP { //if there is not enough money on user inputs, we will use cold wallet entries
 		ColdKey = LocalConfig.BitcoinColdWalletPass // Private Key of cold Wallet
 		//get inputs from Cold Wallet
 		ColdWalletsTxIn.mux.Lock()
@@ -166,13 +166,13 @@ func CreateInputs(client *rpcclient.Client, userId uint64, Value uint64, Private
 				continue
 			} else if DataValue == Value {
 				inputs = append(inputs, btcjson.TransactionInput{Txid:txHash, Vout:Vout, Witness: "", ScriptSig: ""})
-				//all good, go to transaction
+				//all is good, go to transaction
 				break
 			} else if  DataValue > Value {
 				inputs = append(inputs, btcjson.TransactionInput{Txid:txHash, Vout:Vout, Witness: "", ScriptSig: ""})
 				ReturnToAcc = DataValue - Value //-fee
 				addressMap[ColdWallet] = ReturnToAcc
-				//all good, return money to account
+				//all is good, return the money to account
 				break
 			}
 		}
@@ -275,7 +275,7 @@ func CreateRawTransaction(sendTo string, amount uint64, Fee btcutil.Amount, clie
 /*
 function sndOutTrn
 args: user ID, amount coins, Transaction ID, send coins To, send coins from
-function sending transaction data to Bitcoin listening server...
+function of sending transaction data to the Bitcoin listening server…
  */
 func sndOutTrn(userId uint64, Value uint64, TxData string, sndTo string, trFrom string) {
 	buf := make([]byte, 148)
@@ -291,7 +291,7 @@ func sndOutTrn(userId uint64, Value uint64, TxData string, sndTo string, trFrom 
 }
 
 /*function listen_wallet
- function listening socket for request to make new transaction
+function of listening socket for the request to make a new transaction
  */
 func listen_wallet(client  *rpcclient.Client) {
 	poller := zmq.NewPoller()
@@ -351,7 +351,7 @@ func listen_wallet(client  *rpcclient.Client) {
 
 /*
 function reciveTrHistory
-function listening socket. Recive users' tx in
+function of listening socket. Receive users' Tx In
  */
 func reciveTrHistory() {
 	poller := zmq.NewPoller()
@@ -410,7 +410,7 @@ func reciveTrHistory() {
 
 /*
 function reciveColdTxIn
-function listening socket. Recive cold wallet Tx In
+function of listening socket. Receive cold wallet Tx In
 */
 func reciveColdTxIn() {
 	poller := zmq.NewPoller()
@@ -616,11 +616,11 @@ func loadTxIn() {
 	file, err := os.Open("../Bitcoin/UsersTxIn.db")
 	defer file.Close()
 	if err != nil {
-		log.Fatal("loadUserBANS",err)
+		log.Fatal(err)
 	}
 	fi, err := file.Stat()
 	if err != nil {
-		log.Fatal("Could not obtain stat", err)
+		log.Fatal("failed to get stat", err)
 	}
 	var i uint64
 
@@ -669,7 +669,7 @@ func checkError(err error) {
 }
 
 func main() {
-	// make maps with without nil data
+	//make maps with no nil data
 	ColdWalletsTxIn.data = make(map[uint64] UserTransaction)
 	usersTrnData.data = make(map[uint64] UserTransaction)
 	//-----

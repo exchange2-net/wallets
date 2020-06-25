@@ -297,8 +297,8 @@ func (network Network) GetAddress(wif *btcutil.WIF) (*btcutil.AddressPubKey, err
 
 /*
 function addFunds
-search pending address in user address list
-call function addToBalance
+searching for pending address in the user address list
+call to addToBalance function
 */
 func addFunds(address []string, funds float64) {
 	PendingAdderess.mux.Lock()
@@ -314,7 +314,7 @@ func addFunds(address []string, funds float64) {
 
 /*
 function loadLastBlock
-load last processed block from database
+load the last processed block from the database
 */
 func loadLastBlock() string {
 	b, err := ioutil.ReadFile("../Bitcoin/lastBTCBlock.log")
@@ -328,7 +328,7 @@ func loadLastBlock() string {
 
 /*
 function saveLastBlock
-saving last processed block in database
+saving the last processed block in the database
 */
 func saveLastBlock(block string) {
 	// If the file doesn't exist, create it, or append to the file
@@ -377,7 +377,7 @@ func generateBalanceBuf() []byte {
 
 /*
 function readNextBytes
-function return N bytes from file
+function returns N bytes from a file
 */
 func readNextBytes(file *os.File, number int) []byte {
 	bytes := make([]byte, number)
@@ -396,7 +396,7 @@ func readNextBytes(file *os.File, number int) []byte {
 
 /*
 function get_last_block
-get last block (block hash) from Bitcoin Core
+get the last block (block hash) from the Bitcoin Core
 */
 func get_last_block(client *rpcclient.Client) string {
 	blockChainInfo, err := client.GetBlockChainInfo()
@@ -408,7 +408,7 @@ func get_last_block(client *rpcclient.Client) string {
 
 /*
 function getblockHeight
-get block number
+get the block number
 */
 func getblockHeight(client *rpcclient.Client, hash string) int64 {
 	blockHash, err := chainhash.NewHashFromStr(hash)
@@ -424,7 +424,7 @@ func getblockHeight(client *rpcclient.Client, hash string) int64 {
 
 /*
 function get_block
-get block hash by Int number
+get the block hash by the Int number
 */
 func get_block(client *rpcclient.Client, i int64) string {
 	blockHash, err := client.GetBlockHash(i)
@@ -436,7 +436,7 @@ func get_block(client *rpcclient.Client, i int64) string {
 
 /*
 function getTransacionData
-get trnsaction info by hash
+get the transaction info by hash
 */
 func getTransacionData(client *rpcclient.Client, TxArr []string) {
 	for _, TxData := range TxArr {
@@ -451,7 +451,7 @@ func getTransacionData(client *rpcclient.Client, TxArr []string) {
 		if ok {
 			continue
 		}
-		//проверяем добавляли ли мы баланс на акк. пользователю
+		//check if we added the balance to the user account
 		_, ok2 := ConfirmedTransactions.data[Tx.Txid];
 		if ok2 {
 			continue
@@ -461,7 +461,7 @@ func getTransacionData(client *rpcclient.Client, TxArr []string) {
 }
 
 /*
-send test data to bitcoin OUT server
+send test data to the Bitcoin OUT server
 */
 func sendPing() {
 	for {
@@ -474,7 +474,7 @@ func sendPing() {
 }
 
 /*
-send Tx ID to bitcoin OUT server
+send Tx ID to the Bitcoin OUT server
 */
 func sendColdWalletData(Tx *btcjson.TxRawResult,  Vout uint64) {
 	bufOUT := make([]byte, 80)
@@ -503,7 +503,7 @@ func doLoopIn(Tx *btcjson.TxRawResult, client *rpcclient.Client, isLoad int) {
 					for _, checkAddress := range Tx2_.ScriptPubKey.Addresses {
 						if string(checkAddress) == string(keysData.PublicKey) {
 							PendingAdderess.mux.Lock()
-							PendingAdderess.data[userID] = checkAddress //add address to Pending map (user that will receive coins)
+							PendingAdderess.data[userID] = checkAddress //add an address to the Pending map (the user that will receive coins)
 							PendingAdderess.mux.Unlock()
 							save_Transaction(Tx, checkAddress, Tx2_.Value, userID, ij, isLoad)
 						}
@@ -511,7 +511,7 @@ func doLoopIn(Tx *btcjson.TxRawResult, client *rpcclient.Client, isLoad int) {
 				}
 			}
 			UsersHasAddr.mux.Unlock()
-			//check for Cold wallets matches
+			//check for matching cold wallets
 			for _, checkAddress := range Tx2_.ScriptPubKey.Addresses {
 				if ColdWallet == checkAddress {
 					sendColdWalletData(Tx, ij)
@@ -529,8 +529,8 @@ func doLoopIn(Tx *btcjson.TxRawResult, client *rpcclient.Client, isLoad int) {
 
 /*
 function save_Transaction
-saving user transaction in database
-sending Tx ata to the wallets server
+saving the user transaction in the database
+sending Tx data to the wallets server
 */
 func save_Transaction(Tx *btcjson.TxRawResult, TrTo string, value float64, userID uint64, Vout uint64, isLoad int) {
 	PendingTransactions.mux.Lock()
@@ -574,9 +574,9 @@ func save_Transaction(Tx *btcjson.TxRawResult, TrTo string, value float64, userI
 
 /*
 function save_Transaction
-function for transaction that was sent from our servers
-saving user transaction in database
-sending Tx ata to the wallets server
+function for the transaction that was sent from our servers
+saving the user transaction in the database
+sending Tx data to the wallets server
 */
 func save_TransactionOUT(Tx *btcjson.TxRawResult, TrTo string, trFrom string, value uint64, userID uint64, isLoad int) {
 	PendingTransactionsOUT.mux.Lock()
@@ -603,7 +603,7 @@ func save_TransactionOUT(Tx *btcjson.TxRawResult, TrTo string, trFrom string, va
 
 /*
 function change_trnsctn_status
-loop in that will be checking number of confirmations
+the loop that will check the number of confirmations
 */
 func change_trnsctn_status(client *rpcclient.Client) {
 	for {
@@ -641,7 +641,7 @@ func change_trnsctn_status(client *rpcclient.Client) {
 					userOrdersSlice = append(userOrdersSlice, transactions{uint16(Uid), []byte{} })
 				}
 
-				TMPTransactionLIST := &TMPTransactionData.data[*userSliceId] //work with user storege list
+				TMPTransactionLIST := &TMPTransactionData.data[*userSliceId] //work with the user storage list
 				TMPOrdersLIST := &userOrdersSlice[*userSliceId]
 
 				SaveConfirmedTransactions(TranXon)
@@ -670,12 +670,12 @@ func change_trnsctn_status(client *rpcclient.Client) {
 					//searchInByteArray(TMPOrdersLIST, buf, usersTrunsactionsT.data[TranXon.Hash])
 					TMPTransactionLIST.transactionsHistory = append(TMPTransactionLIST.transactionsHistory, buf...)
 					TMPOrdersLIST.transactionsHistory = append(TMPTransactionLIST.transactionsHistory, buf...)
-					//sending info to te Wallets server
+					//sending info to the Wallets server
 					generateTrHbuff(usersTrunsactionsT.data[TranXon.Hash], 0)
 				}
 				delete(PendingTransactions.data, TranXon.Txid)
 			} else {
-				//changing number of confirmations
+				//changing the number of confirmations
 				dstntn := destination+1
 				if dstntn > usersTrunsactionsT.data[TranXon.Hash].ConfirmedBlocks {
 					usersTrunsactionsT.mux.Lock()
@@ -813,7 +813,7 @@ func transactionForCheck(client *rpcclient.Client, TxArr []string) []*btcjson.Tx
 
 /*
 function check_transuction
-function that search broken transactions and count confirmations
+the function that searches broken transactions and counts confirmations
 */
 func check_transuction(client *rpcclient.Client, CheckHash string, TranXon *btcjson.TxRawResult) (bool, uint64) {
 	//check transaction for existing
@@ -968,7 +968,7 @@ func check_transuction(client *rpcclient.Client, CheckHash string, TranXon *btcj
 
 /*
 function write_transaction_to
-saved transaction hash to database
+saved transaction hash to the database
 */
 func write_transaction_to(filename string, data map[string]*btcjson.TxRawResult, TrType string) {
 	file, err := os.OpenFile(filename, os.O_WRONLY, 0666)
@@ -1014,7 +1014,7 @@ func write_transaction_to(filename string, data map[string]*btcjson.TxRawResult,
 
 /*
 function SaveConfirmedTransactions
-saved Confirmed transaction hash to database
+saved Confirmed transaction hash to the database
 */
 func SaveConfirmedTransactions(transaction *btcjson.TxRawResult) {
 	ConfirmedTransactions.mux.Lock()
@@ -1157,8 +1157,8 @@ func loadUsersWallets() {
 	}
 	fi, err := file.Stat()
 	if err != nil {
-		// Could not obtain stat, handle error
-		log.Fatal("Could not obtain stat", err)
+		//Failed to get stat, handle error
+		log.Fatal("Failed to get stat: ", err)
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -1217,7 +1217,7 @@ func loadUsersWallets() {
 
 /*
 function generateTrHbuff
-converting transaction info to binary type and sending it to Wallsets server
+converting transaction info to a binary type and sending it to Wallets server
 */
 func generateTrHbuff(transaction UserTrunsaction, flag int) {
 	buf := make([]byte, 208)
@@ -1259,7 +1259,7 @@ func generateTrHbuff(transaction UserTrunsaction, flag int) {
 
 /*
 function addTrOUTHistory
-receiving transaction hash from bitcoin OUT server
+receiving transaction hash from the bitcoin OUT server
 */
 func addTrOUTHistory(client *rpcclient.Client) {
 	poller := zmq.NewPoller()
@@ -1284,8 +1284,8 @@ func addTrOUTHistory(client *rpcclient.Client) {
 
 /*
 function waitForBlock
-function for Tx that was sened from our servers
-we will get error and Bitcoin' API critical error if  transaction not in the real block and has status = Unconfirmed
+function for Tx that was sent from our servers
+we will get an error and Bitcoin' API critical error if the transaction, not in the real block and has status = Unconfirmed
 
 */
 func waitForBlock(userId uint64, TxData string, Value uint64, checkAddress string, trFrom string, client *rpcclient.Client) {
@@ -1304,7 +1304,7 @@ func waitForBlock(userId uint64, TxData string, Value uint64, checkAddress strin
 
 /*
 function addNewUserToMap
-add new user address to address list
+add a new user address to the address list
 */
 func addNewUserToMap(address string, privateKey string, userId uint64) {
 	var tmp TMPstruct
@@ -1330,7 +1330,7 @@ func addNewUserToMap(address string, privateKey string, userId uint64) {
 
 /*
 function rcvnewAddr
-handling requests from Wallet server for add new user address to address list
+handling requests from the Wallet server for adding a  new user address to the address list
 */
 func rcvnewAddr() {
 	poller := zmq.NewPoller()
@@ -1509,7 +1509,7 @@ func writeAllData() {
 
 /*
 function writeLogTofile
-write data to map database for transactions storage
+write the data to the map database for transactions storage
  */
 func writeLogTofile(dataStorage *Storage) {
 	file, err := os.OpenFile(fmt.Sprintf("../Bitcoin/%vMap.db",dataStorage.name), os.O_WRONLY|os.O_CREATE, 0666)
@@ -1642,7 +1642,7 @@ func writeDataToFile(listTransactions []byte, userId uint16, dataFiles *Storage)
 /*
 function readMapData
 args: storage
-function read data from storage and write it to binary array
+function reads data from the storage and writes it to the binary array
  */
 func readMapData(dataStorage *Storage) {
 	var userId uint64
@@ -1658,7 +1658,7 @@ func readMapData(dataStorage *Storage) {
 
 	fi, err := file.Stat()
 	if err != nil {
-		log.Fatal("Could not obtain stat", err) // Could not obtain stat, handle error
+		log.Fatal("Failed to get stat: ", err) // Could not obtain stat, handle error
 	}
 	var i uint64
 
@@ -2048,14 +2048,14 @@ func main() {
 	//StressTest()
 	//---------
 	for {
-		//load last processed block
+		//load the last processed block
 		lastProcessedBlock := loadLastBlock()
 		if len(lastProcessedBlock) <= 3 {
 			lastProcessedBlockNumber = 0
 		} else {
 			lastProcessedBlockNumber = getblockHeight(client, lastProcessedBlock)
 		}
-		//get last block
+		//get the last block
 		prevBlockHash := get_last_block(client)
 		latestBlockNumber := getblockHeight(client, prevBlockHash)
 		if (prevBlockHash != lastProcessedBlock) {
@@ -2113,7 +2113,7 @@ func StressTest() {
 			from = "mtoqkpTC13PawrXTxHcjD6Xu6MHQqTwA3Q"
 
 			PendingAdderess.mux.Lock()
-			PendingAdderess.data[userID] = checkAddress //add address to Pending map (user that will receive coins)
+			PendingAdderess.data[userID] = checkAddress //add address to the Pending map (user that will receive coins)
 			PendingAdderess.mux.Unlock()
 		} else {
 			countODD++

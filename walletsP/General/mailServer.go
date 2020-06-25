@@ -118,7 +118,7 @@ func sendMailToUser() {
 
 /*
 function listenAuthServer
-function listen request from authorization server.
+function listens a request from the authorization server.
 Request types:
 - send Email about registration
 - send Email about log out
@@ -195,7 +195,7 @@ func processAUTData(msg []byte) {
 }
 /*
 function listenWalletsServer
-function listen request from Wallets server.
+function listens a  request from the Wallets server.
 Request types:
 - send Email about receiving coins
 - send Email about sending coins
@@ -271,7 +271,7 @@ func procwssWData(msg []byte) {
 }
 /*
 function loadSubjects
-function initialize data:
+function to initialize data:
 - path to HTML templates
 - Email subjects
  */
@@ -379,7 +379,7 @@ func createMail(mData RecivedData) (string, string) {
 /*
 function sand_mail
 args: message
-function create connection to mail service and after that function send message
+function to create connection to mail service and after that it sends a message
  */
 func sand_mail(mData map[uint64]RecivedData) {
 	tlsconfig := &tls.Config{
