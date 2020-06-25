@@ -150,7 +150,7 @@ func createMail(mData RecivedData, mailType string) (string, string) {
 	headers["Content-Type"] = "text/html; charset=\"UTF-8\""
 	headers["Content-Transfer-Encoding"] = "base64"
 	//set Headers END------
-	// Setup message
+	// Setup a message
 	var message = ""
 	for k, v := range headers {
 		message += fmt.Sprintf("%s: %s\r\n", k, v)
@@ -164,7 +164,7 @@ func createMail(mData RecivedData, mailType string) (string, string) {
 /*
 function send_mail
 args: message
-function create connection to mail service and after that function send message
+the function is to create a connection to the mail service and after that  to send a  message
 */
 func send_mail_to_support(mData map[uint64]RecivedData) {
 	tlsconfig := &tls.Config{
@@ -238,7 +238,7 @@ func send_mail_to_support(mData map[uint64]RecivedData) {
 /*
 function send_mail
 args: message
-function create connection to mail service and after that function send message
+the function is to create a connection to the mail service and after that  to send a  message
 */
 func send_mail_to_user(mData map[uint64]RecivedData) {
 	tlsconfig := &tls.Config{
@@ -312,7 +312,7 @@ func send_mail_to_user(mData map[uint64]RecivedData) {
 /*
 function replaceText
 args: mail data, current time
-function for replacing HTML template text by mail data
+the function is for replacing  HTML template text by mail data
 */
 func replaceText(mData RecivedData, mailType string) string{
 	userId := fmt.Sprintf("%v", mData.userId)
@@ -333,7 +333,7 @@ func replaceText(mData RecivedData, mailType string) string{
 /*
 function loadMailTemplate
 args: path to HTML template
-fuction for loading HTML template
+the function is for loading HTML template
 */
 func loadMailTemplate(file string) string{
 	path := fmt.Sprintf("../mailTemplates/%v.html", file)
@@ -401,7 +401,7 @@ func loadRequests() {
 
 /*
 function readNextBytes
-function return N bytes from file
+the function is for return N bytes from the file 
 */
 func readNextBytes(file *os.File, number int) []byte {
 	bytes := make([]byte, number)

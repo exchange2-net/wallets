@@ -26,7 +26,7 @@ var network = map[string]Network{
 	"ltc": {name: "litecoin", symbol: "ltc", xpubkey: 0x30, xprivatekey: 0xb0},
 }
 
-// string function name
+// string a function name
 var funcMap = map[string]interface{}{
 	"Bitcoin" : DecodeBitcoin,
 }
@@ -83,7 +83,7 @@ func main() {
 
 /*
 function writeAddrData
-write keys from map to databese
+write keys from the map to database
 */
 func writeAddrData(folder string) {
 	Path := fmt.Sprintf("../users/FreeKeys%v.db", folder)
@@ -116,7 +116,7 @@ func writeAddrData(folder string) {
 	file.Close()
 }
 /*
-call function by her string name
+call the function by her string name
  */
 func CreatePublicAddr(Coin string) {
 	funcMap[Coin].(func())()

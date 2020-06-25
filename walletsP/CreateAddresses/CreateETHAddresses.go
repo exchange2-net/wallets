@@ -27,7 +27,7 @@ type cryptosalt struct {
 	} `json:"crypto"`
 }
 
-//first step - run geth
+//the first step is to run geth
 func main() {
 	createETHAddr()
 	writeAddrData("Ethereum")
@@ -35,7 +35,7 @@ func main() {
 
 /*
 function writeAddrData
-write keys from map to databese
+write keys from the map to database
  */
 func writeAddrData(folder string) {
 	Path := fmt.Sprintf("../users/FreeKeys%v.db", folder)
@@ -68,7 +68,7 @@ func writeAddrData(folder string) {
 
 /*
 function createETHAddr
-loop for creating address
+a loop for creating address
  */
 func createETHAddr() {
 	i := 1
@@ -99,7 +99,7 @@ func decodeEthereum(salt string) {
 
 /*
 function getSalt
-get private key (salt) from file
+get a private key (salt) from the  file
  */
 func getSalt(name string) string{
 	var key_PATH = "../../../Library/Ethereum/keystore/"
@@ -125,8 +125,8 @@ func getSalt(name string) string{
 
 /*
 function create_account
-send request to Ethereum core
-Create New User account and get ETH address.
+send a request to Ethereum core
+Create a New User account and get an ETH address..
  */
 func create_account() LocalConfig.New_account{
 	var account LocalConfig.New_account
@@ -163,7 +163,7 @@ func create_account() LocalConfig.New_account{
 
 /*
 function get_key_file
-return full path to kestore file
+return a full path to the keystore file
  */
 func get_key_file(address string) string {
 	var key_PATH = "../../../Library/Ethereum/keystore/"
@@ -185,7 +185,7 @@ func get_key_file(address string) string {
 
 /*
 function readNextBytes
-function return N bytes from file
+the  function is to return N bytes from the file
 */
 func readNextBytes(file *os.File, number int) []byte {
 	bytes := make([]byte, number)

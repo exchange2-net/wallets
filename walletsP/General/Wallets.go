@@ -35,12 +35,12 @@ var TMPMailData struct {
 
 var Wclients struct {
 	data map[string]Session
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex //mutex for a concurrent map
 }
 
 var WclientsId struct {
 	data map[uint64]Session
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex //mutex for a concurrent map
 }
 
 var WPorts[1000]Pairs.WalletType
@@ -153,7 +153,6 @@ type UsersChannels struct {
 	sendHTTPresponse chan []byte
 }
 
-//Storage like in the history server
 var fileOL *os.File
 var file200 *os.File
 var file1000 *os.File
@@ -163,7 +162,7 @@ type Storage struct{
 	file1000 *os.File
 	file10000 *os.File
 	name string
-	historyRegistry [1000000] Records //рассчитано на один миллион пользователей
+	historyRegistry [1000000] Records //designed for one million users
 }
 type Records struct {
 	pos200 int64
@@ -176,7 +175,7 @@ var TransactionsHistory Storage
 var TransactionsHistoryETH Storage
 
 func main() {
-	// make maps with without nil data
+	//make maps without any nil data
 	Wclients.data = make(map[string]Session)
 	WclientsId.data = make(map[uint64]Session)
 	FreeCoinAdresses.data = make(map[string]FreeAddresses)
@@ -199,7 +198,7 @@ func main() {
 	loadUserAddr("BTC")
 	loadUserAddr("ETH")
 
-	//loading list of free coins
+	//loading the list of free coins
 	coinsBTC := [3]string{"Bitcoin", "Litecoin", "Ravecoin"}
 	for _, dataToLoad := range coinsBTC {
 		getFreeAddress(dataToLoad, "BTC")
@@ -210,7 +209,7 @@ func main() {
 		getFreeAddress(dataToLoad, "ETH")
 	}
 
-	//Creating connection with Authorization server (receive)
+	//creating a connection with Authorization server (receive)
 	//receive data from Authorization Server
 	rcvWalletsAuth, _ = zmq.NewSocket(zmq.PULL)
 	defer rcvWalletsAuth.Close()
@@ -218,7 +217,7 @@ func main() {
 	rcvWalletsAuthAddress := fmt.Sprintf("%v%v", LocalConfig.LocalTcpIpAddr, LocalConfig.WalletAuthPort)
 	rcvWalletsAuth.Connect(rcvWalletsAuthAddress)
 
-	//Creating connection with "IN" server (receive)
+	//Creating a connection with "IN" server (receive)
 	var rcvTransactionHistoryAddresses = make(map[int]string)
 	ij := 1 // like Coin ID
 	for i := LocalConfig.WalletrcvHistoryBegin; i <= LocalConfig.WalletrcvHistoryEnd; i++ {
@@ -231,7 +230,7 @@ func main() {
 		ij++
 	}
 
-	//Creating connection with "IN" servers (send)
+	//Creating a connection with "IN" servers (send)
 	//sending data to "IN" servers. Info about new user address
 	j := 1
 	var addressMap = make(map[int]string)
@@ -245,9 +244,9 @@ func main() {
 		time.Sleep(10*time.Millisecond)
 	}
 
-	//Creating connection with "OUT" servers (send)
+	//Creating a connection with "OUT" servers (send)
 	//sending data to "OUT" servers.
-	//Sending request for make OUT transaction. Sending coins to other address
+	//Sending a request for making an  OUT transaction. Sending coins to other addresses
 	j = 1
 	var addressTrMap = make(map[int]string)
 	for i := LocalConfig.WalletaddressTrMapBegin; i <= LocalConfig.WalletaddressTrMapEnd; i++  {
@@ -273,26 +272,26 @@ func main() {
 		time.Sleep(10*time.Millisecond)
 	}
 
-	//Creating connection with balance server (receive)
+	//Creating a  connection with a balance server (receive)
 	rcvCheckBalance, _ = zmq.NewSocket(zmq.PULL)
 	defer rcvCheckBalance.Close()
 	rcvCheckBalance.SetRcvhwm(1100000)
 	rcvCheckBalance.Connect(fmt.Sprintf("%v%v", LocalConfig.LocalTcpIpAddr, LocalConfig.WalletrcvCheckBalancePort))
 
-	//Creating connection with balance server (send)
+	//Creating a connection with balance server (send)
 	sndCheckBalance, _ = zmq.NewSocket(zmq.PUSH)
 	defer sndCheckBalance.Close()
 	sndCheckBalance.SetRcvhwm(1100000)
 	sndCheckBalance.Bind(fmt.Sprintf("%v%v", LocalConfig.LocalTcpIpAddr, LocalConfig.WalletsndCheckBalancePort))
 
-	//Creating connection with Mail server (send)
+	//Creating a connection with Mail server (send)
 	sendWalletsMail ,_ = zmq.NewSocket(zmq.PUSH)
 	defer sendWalletsMail.Close()
 	sendWalletsMail.SetRcvhwm(1100000)
 	sendWalletsMailAddress := fmt.Sprintf("%v%v", LocalConfig.LocalTcpIpAddr, LocalConfig.WalletsendMailPort)
 	sendWalletsMail.Bind(sendWalletsMailAddress);
 
-	//Creating connection with OUT servers (receive)
+	//Creating a connection with OUT servers (receive)
 	ij = 0
 	for i := 7410; i <= 7419; i++  {
 		rcvTransactionAnswer[ij], _ = zmq.NewSocket(zmq.PULL)
@@ -343,7 +342,7 @@ func main() {
 	defer TransactionsHistoryETH.file10000.Close()
 	TransactionsHistoryETH.name = "transactionsHistoryETH"
 
-	//Read data from Ethereum and Bitcoin Transactions Storage
+	//Read data from Ethereum and Bitcoin Transactions Storages
 	readMapData(&TransactionsHistoryETH, "Ethereum")
 	readMapData(&TransactionsHistory, "Bitcoin")
 
@@ -379,7 +378,7 @@ func subscribe(mail string) int{
 /*
 function readMapData
 args: storage, coin type
-function read data from storage and write it to binary array
+the function is to read data from the storage and to write it to binary array
  */
 func readMapData(dataStorage *Storage, Coin string) {
 	var userId uint64
@@ -394,8 +393,8 @@ func readMapData(dataStorage *Storage, Coin string) {
 
 	fi, err := file.Stat()
 	if err != nil {
-		// Could not obtain stat, handle error
-		log.Fatal("Could not obtain stat", err)
+		// Failed getting stat, handle error
+		log.Fatal("Failed getting stat ", err)
 	}
 
 	var i uint64
@@ -429,7 +428,7 @@ func readMapData(dataStorage *Storage, Coin string) {
 		var new_read_offset uint64
 		var read_strings uint64
 
-		//how many records will be read from storage
+		//how many records will be read from the  storage
 		if dataStorage.historyRegistry[userId].records >= 200 {
 			read_strings = 200
 		} else {
@@ -451,7 +450,7 @@ func readMapData(dataStorage *Storage, Coin string) {
 				new_read_offset = uint64(10000)
 			}
 
-			//reading data from storage
+			//reading data from the storage
 			HistoryETH = readFileData(userId,read_strings, new_read_offset, dataStorage, Coin)
 
 			var offset int
@@ -513,7 +512,7 @@ func readMapData(dataStorage *Storage, Coin string) {
 				new_read_offset = uint64(10000)
 			}
 
-			//reading data from storage
+			//reading data from the storage
 			HistoryBTC = readFileData(userId,read_strings, new_read_offset, dataStorage, Coin)
 
 			if len(AllHistoryBin.data) <= 1 {
@@ -527,7 +526,7 @@ func readMapData(dataStorage *Storage, Coin string) {
 
 /*
 function readFileDataOffset
-args: User ID, how many records will be read from storage, read offset, storage
+args: User ID, how many records will be read from the storage, read offset, storage
 function returns read offset
  */
 func readFileDataOffset(userId uint64, amount uint64, offset uint64, dataFiles *Storage) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
@@ -600,8 +599,8 @@ func readFileDataOffset(userId uint64, amount uint64, offset uint64, dataFiles *
 
 /*
 function readFileData
-args: User ID,  how many records will be read from storage, read offset, storage
-function returns records from storage
+args: User ID, how many records will be read from the storage, read offset, storage
+function returns records from the storage
  */
 func readFileData(userId uint64, amount uint64, offset uint64, dataFiles *Storage, Coin string) ([]byte) {
 	buffer := make([]byte,1)
@@ -678,7 +677,7 @@ func readFileData(userId uint64, amount uint64, offset uint64, dataFiles *Storag
 
 /*
 function sendToMailServer
-sending request for create new mail
+sending a request to create a new mail
  */
 func sendToMailServer() {
 	for {
@@ -694,7 +693,7 @@ func sendToMailServer() {
 
 /*
 function sendMail
-creating request with binary data
+creating a request with a binary data
  */
 func sendMail(MailData mailStruct) {
 	mailbuf := make([]byte, 158)
@@ -789,7 +788,7 @@ var globalCounter int
 
 /*
 function ProcessTrSokets
-function for reading data from sockets and writing it to binary array
+function for reading data from sockets and writing them to a binary array
  */
 func ProcessTrSokets(msg []byte) {
 	var UserId uint64
@@ -878,7 +877,7 @@ func ProcessTrSokets(msg []byte) {
 				var updateFlag bool
 				updateFlag = false
 
-				//searching transaction that already exist in binary array
+				//searching for the transaction that already exist in a binary array
 				j := 0
 				globalCounter++
 				AllHistoryBin.mux.Lock()
@@ -954,7 +953,7 @@ func ProcessTrSokets(msg []byte) {
 
 /*
 function sendBforCheck
-sending request for check balance, for make new transaction
+sending a request to check balance, to make a new transaction
  */
 func sendBforCheck(CoinID uint64, userId uint64, value uint64) {
 	buf := make([]byte, 24)
@@ -1046,7 +1045,7 @@ func reciveTransactionAnswer() {
 
 /*
 function proccessransactionAnswer
-function for reading data from sockets and writing it to response channel
+function for reading data from sockets and writing them to response channel
  */
 func proccessTransactionAnswer(msg []byte) {
 	if len(msg) == 3 {
@@ -1071,8 +1070,8 @@ func proccessTransactionAnswer(msg []byte) {
 /*
 function reciveBalanceAnswer
 function for listening sockets
-listening data from Balance server
-if response == 1 will be created new transaction
+listening data from a Balance serve
+if responded == 1 new transaction will be created
  */
 func reciveBalanceAnswer() {
 	poller := zmq.NewPoller()
@@ -1177,7 +1176,7 @@ func handleWconn(w http.ResponseWriter, r *http.Request) {
 		data[1] - user session
 		data[2] - user id
 		data[3] - send to wallet // type int, from 1 till 7 (9)
-		data[4-9] - request's params
+		data[4-9] - request params
 	*/
 
 	if (len(data) < 6) {
@@ -1196,7 +1195,7 @@ func handleWconn(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("globalCounter------ ", globalCounter)
 
-	//Check Type of requests
+	//Check the type of requests
 	if (data[0] == "Subscribe") {
 		email := strings.TrimSpace(r.FormValue("email"))
 		result := subscribe(email)
@@ -1420,7 +1419,7 @@ func coutTransactions(userId uint64) string{
 
 /*
 function displayAllHistory
-reading data from binary array and send it to user
+reading data from a binary array and send it to user
  */
 func displayAllHistory(userId uint64, filter uint64, address string) string{
 	_, userIsOk := WclientsId.data[userId]
@@ -1588,7 +1587,7 @@ func updeteListningServers(userId uint64, publicKey string, privateKey string, C
 
 /*
 function getWalletAddress
-give to user new wallet address
+give the user a new wallet address
  */
 func getWalletAddress(coinType string, userId uint64, CoinID uint64) string {
 	if CoinID == 0 {
@@ -1639,7 +1638,7 @@ func getWalletAddress(coinType string, userId uint64, CoinID uint64) string {
 
 /*
 function deleteAddFromFree
-updating wallet address storage
+updating the wallet address storage
  */
 func deleteAddFromFree(PrivateKey string, PublicKey string, coinType string) {
 	string := fmt.Sprintf("%v%v", PrivateKey, PublicKey)
@@ -1691,7 +1690,7 @@ func deleteAddFromFree(PrivateKey string, PublicKey string, coinType string) {
 
 /*
 function getFreeAddress
-load addresses from storage
+load addresses from the storage
  */
 func getFreeAddress(currency string, currencyType string) {
 	var keysData = make(map[string]string)
@@ -1803,7 +1802,7 @@ func writeFileWallet(PrivateKey string, PublicKey string, userId uint64, coinTyp
 
 /*
 function loadUserAddr
-loading user address from storage
+loading the user address from the storage
  */
 func loadUserAddr(coinType string) {
 	var Path string
@@ -1829,8 +1828,8 @@ func loadUserAddr(coinType string) {
 	}
 	fi, err := file.Stat()
 	if err != nil {
-		// Could not obtain stat, handle error
-		log.Fatal("Could not obtain stat", err)
+		//Failed to get stat, handle error
+		log.Fatal("Failed to get stat ", err)
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -1970,7 +1969,7 @@ func checkWalletsAuth() {
 
 /*
 function readNextBytes
-function return N bytes from file
+function returns N bytes from the file
  */
 func readNextBytes(file *os.File, number int) []byte {
 	bytes := make([]byte, number)

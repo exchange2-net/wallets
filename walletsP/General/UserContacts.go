@@ -20,21 +20,21 @@ import (
 	"time"
 )
 
-var rcvWalletsAuth *zmq.Socket //ZMQ, socket variable //handle user login
+var rcvWalletsAuth *zmq.Socket //ZMQ, a socket variable //a handle user login
 
 var Wclients struct {
 	data map[string]Session
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex // mutex for a concurrent map
 }
 
 var WclientsId struct{
 	data map[uint64]Session
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex // mutex for a concurrent map
 }
 
 var UserContacts struct {
 	data map[uint64]ContactStruct
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex // mutex for a concurrent map
 }
 
 var tmpImgData struct {
@@ -43,7 +43,7 @@ var tmpImgData struct {
 		name string
 		ext string
 	}
-	mux sync.Mutex // mutex for concurrent map
+	mux sync.Mutex // mutex for a concurrent map
 }
 
 type Session struct{
@@ -61,10 +61,10 @@ type ContactStruct map[int]struct{
 	ImgUrl string
 }
 
-const uploadPath = "../WHTML/ConatctImages" //path to upload folder
+const uploadPath = "../WHTML/ConatctImages" //path to upload a folder
 
 func main() {
-	// make maps with without nil data
+	//make maps without any nil data
 	WclientsId.data = make(map[uint64]Session)
 	UserContacts.data = make(map[uint64]ContactStruct)
 	Wclients.data = make(map[string]Session)
@@ -86,7 +86,7 @@ func main() {
 		http.ListenAndServe(server_port, Wservers)
 	}()
 
-	rcvWalletsAuth, _ = zmq.NewSocket(zmq.PULL) //create new socket connection fo recive user auth...
+	rcvWalletsAuth, _ = zmq.NewSocket(zmq.PULL) //create a new socket connection for receive user auth…
 	defer rcvWalletsAuth.Close()
 	rcvWalletsAuth.SetRcvhwm(1100000)
 	rcvWalletsAuthAddress := fmt.Sprintf("%v%v", LocalConfig.LocalTcpIpAddr, LocalConfig.UContactsAuthPort)
@@ -152,7 +152,7 @@ func saveContact(UserID uint64, UserFIO string, About string, CoinId uint64, Wal
 	bufferedWriter.Flush()
 
 	UserContacts.mux.Lock()
-	//create variable for TMP data
+	//create a variable for TMP data
 	var tmpData = make(map[int]struct{
 		UserID uint64
 		UserFIO string
@@ -211,7 +211,7 @@ func saveContact(UserID uint64, UserFIO string, About string, CoinId uint64, Wal
 
 /*
 function loadContact
-function loaded user contacts from file
+the  function is to load user contacts from the file
  */
 func loadContact() {
 	file, err := os.Open("../Contacts/Contacts.db")
@@ -271,7 +271,7 @@ func loadContact() {
 
 /*
 function uploadFileHandler
-handler for uploading images
+the handler for uploading images
  */
 func uploadFileHandler() http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -350,7 +350,7 @@ func uploadFileHandler() http.HandlerFunc {
 
 /*
 function handleWconn
-handler for http requests
+the handler for http requests
  */
 func handleWconn(w http.ResponseWriter, r *http.Request)  {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -368,7 +368,7 @@ func handleWconn(w http.ResponseWriter, r *http.Request)  {
 		data[0] - type of request //get balance, create wallet, send money
 		data[1] - user session
 		data[2] - user id
-		data[3-9] - request's params
+		data[3-9] - request params
 	*/
 	userId, _ := strconv.ParseUint(data[2], 10, 0)
 
@@ -406,7 +406,7 @@ func handleWconn(w http.ResponseWriter, r *http.Request)  {
 
 /*
 function checkWalletsAuth
-listening socket for receive user authorization.
+listening socket to receive user authorization.
  */
 func checkWalletsAuth() {
 	poller := zmq.NewPoller()
@@ -462,7 +462,7 @@ func checkWalletsAuth() {
 
 /*
 function readNextBytes
-function return N bytes from file
+the function returns  N bytes from the file
 */
 func readNextBytes(file *os.File, number int) []byte {
 	bytes := make([]byte, number)
@@ -480,7 +480,7 @@ func readNextBytes(file *os.File, number int) []byte {
 
 /*
 function randToken
-function for generating random file name
+the function is for generating random file name
  */
 func randToken(len int) string {
 	b := make([]byte, len)
