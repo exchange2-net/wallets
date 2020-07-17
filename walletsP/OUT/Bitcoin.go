@@ -694,14 +694,14 @@ func main() {
 	err = sndBalance.Bind(fmt.Sprintf("%v%v", LocalConfig.LocalTcpIpAddr, LocalConfig.BTCBalanceOUTPort));
 	checkError(err) //check for errors
 
-	rcvTransactionHistory,_ = zmq.NewSocket(zmq.PULL) //create new socket for recive new user TxIn
+	rcvTransactionHistory,_ = zmq.NewSocket(zmq.PULL) //create new socket for recieve new user TxIn
 	defer rcvTransactionHistory.Close()
 	rcvTransactionHistory.SetRcvhwm(1100002)
 	rcvTransactionHistoryAddresses := fmt.Sprintf("%v%v", LocalConfig.LocalTcpIpAddr, LocalConfig.BTCrcvTrnsctnHstrOUTPort)
 	err = rcvTransactionHistory.Connect(rcvTransactionHistoryAddresses)
 	checkError(err) //check for errors
 
-	rcvColdTxIn, _ = zmq.NewSocket(zmq.PULL) //create new socket for recive new cold wallet TxIn
+	rcvColdTxIn, _ = zmq.NewSocket(zmq.PULL) //create new socket for recieve new cold wallet TxIn
 	defer rcvColdTxIn.Close()
 	rcvColdTxIn.SetRcvhwm(1100001)
 	rcvColdTxInAddress := fmt.Sprintf("%v%v", LocalConfig.LocalTcpIpAddr, LocalConfig.BTCrcvColdTxInPort)

@@ -573,7 +573,7 @@ func save_Transaction(Tx *btcjson.TxRawResult, TrTo string, value float64, userI
 }
 
 /*
-function save_Transaction
+function save_TransactionOUT
 function for the transaction that was sent from our servers
 saving the user transaction in the database
 sending Tx data to the wallets server
@@ -1286,7 +1286,6 @@ func addTrOUTHistory(client *rpcclient.Client) {
 function waitForBlock
 function for Tx that was sent from our servers
 we will get an error and Bitcoin' API critical error if the transaction, not in the real block and has status = Unconfirmed
-
 */
 func waitForBlock(userId uint64, TxData string, Value uint64, checkAddress string, trFrom string, client *rpcclient.Client) {
 	blockHash, err := chainhash.NewHashFromStr(TxData)
