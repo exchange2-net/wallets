@@ -260,7 +260,7 @@ func get_current_Сourse() {
 	log.SetFlags(0)
 
 	u := url.URL{Scheme: "wss", Host: *addr, Path: "/stream"}
-	u.RawQuery = "streams=btcusdt@depth/ethusdt@depth"
+	u.RawQuery = "streams=btcusdt@depth/ethusdt@depth/ltcusdt@depth"
 
 	c, statusFlag, err := websocket.DefaultDialer.Dial(u.String(), nil)
 
@@ -282,9 +282,11 @@ func get_current_Сourse() {
 
 	var btcFlag bool
 	var ethFlag bool
+	var ltcFlag bool
 
 	btcFlag = false
 	ethFlag = false
+	ltcFlag = false
 
 	for {
 		statuscode, message, err := c.ReadMessage()
@@ -317,16 +319,22 @@ func get_current_Сourse() {
 
 		readData :=  data["data"].(map[string]interface{})
 		if len(readData) == 0 || readData == nil{
+			time.Sleep(time.Second * 5)
+			get_current_Сourse()
+			return
 			fmt.Println("len(readData) == 0")
 			continue
 		}
 		dataMap := readData["a"].([]interface{})
 		if len(dataMap) == 0 || dataMap == nil{
+			time.Sleep(time.Second * 5)
+			get_current_Сourse()
+			return
 			fmt.Println("len(dataMap) == 0")
 			continue
 		}
 		valueR := dataMap[0].([]interface{})
-	    var result float64
+		var result float64
 		tmp := fmt.Sprintf("%v", valueR[0])
 		result,_ = strconv.ParseFloat(tmp, 64)
 
@@ -341,6 +349,12 @@ func get_current_Сourse() {
 			CoinsPriceUSD.data[4] = result
 			CoinsPriceUSD.mux.Unlock()
 			ethFlag = true
+		}
+		if splitData[0] == "ltcusdt" && ltcFlag == false{
+			CoinsPriceUSD.mux.Lock()
+			CoinsPriceUSD.data[3] = result
+			CoinsPriceUSD.mux.Unlock()
+			ltcFlag = true
 		}
 
 	}
@@ -529,6 +543,8 @@ func CheckBalance() {
 			value = value + 420000 //+fee ETH
 		} else if coin == 1 {
 			value = value + 10000 //+fee BTC
+		} else if coin == 3  {
+			value = value + 10000 //+fee LTC
 		}
 		currencies.mux.Lock()
 		current_balance := currencies.data[coin][userId]
@@ -722,21 +738,23 @@ API, covert USD to EUR
  */
 func getUSDinEUR_Price() {
 	for {
-
 		client := &http.Client{}
 		req, err := http.NewRequest("GET","https://api.ratesapi.io/api/latest", nil)
 		if err != nil {
+			time.Sleep(time.Second * 5)
+			getUSDinEUR_Price()
 			log.Print(err)
-			os.Exit(1)
+			return
 		}
 
 		req.Header.Set("Accepts", "application/json")
 		resp, err := client.Do(req);
 		if err != nil {
+			time.Sleep(time.Second * 5)
+			getUSDinEUR_Price()
 			fmt.Println("Error sending request to server")
-			os.Exit(1)
+			return
 		}
-		fmt.Println(resp.Status);
 		respBody, _ := ioutil.ReadAll(resp.Body)
 
 		data := &USDinEUR_Pricetype{}
