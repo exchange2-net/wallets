@@ -35,12 +35,12 @@ var TMPMailData struct {
 
 var Wclients struct {
 	data map[string]Session
-	mux sync.Mutex //mutex for a concurrent map
+	mux sync.Mutex // mutex for concurrent map
 }
 
 var WclientsId struct {
 	data map[uint64]Session
-	mux sync.Mutex //mutex for a concurrent map
+	mux sync.Mutex // mutex for concurrent map
 }
 
 var WPorts[1000]Pairs.WalletType
@@ -153,6 +153,7 @@ type UsersChannels struct {
 	sendHTTPresponse chan []byte
 }
 
+//Storage like in the history server
 var fileOL *os.File
 var file200 *os.File
 var file1000 *os.File
@@ -162,7 +163,7 @@ type Storage struct{
 	file1000 *os.File
 	file10000 *os.File
 	name string
-	historyRegistry [1000000] Records //designed for one million users
+	historyRegistry [1000000] Records //рассчитано на один миллион пользователей
 }
 type Records struct {
 	pos200 int64
@@ -173,9 +174,10 @@ type Records struct {
 }
 var TransactionsHistory Storage
 var TransactionsHistoryETH Storage
+var TransactionsHistoryLTC Storage
 
 func main() {
-	//make maps without any nil data
+	// make maps with without nil data
 	Wclients.data = make(map[string]Session)
 	WclientsId.data = make(map[uint64]Session)
 	FreeCoinAdresses.data = make(map[string]FreeAddresses)
@@ -198,7 +200,7 @@ func main() {
 	loadUserAddr("BTC")
 	loadUserAddr("ETH")
 
-	//loading the list of free coins
+	//loading list of free coins
 	coinsBTC := [3]string{"Bitcoin", "Litecoin", "Ravecoin"}
 	for _, dataToLoad := range coinsBTC {
 		getFreeAddress(dataToLoad, "BTC")
@@ -209,7 +211,7 @@ func main() {
 		getFreeAddress(dataToLoad, "ETH")
 	}
 
-	//creating a connection with Authorization server (receive)
+	//Creating connection with Authorization server (receive)
 	//receive data from Authorization Server
 	rcvWalletsAuth, _ = zmq.NewSocket(zmq.PULL)
 	defer rcvWalletsAuth.Close()
@@ -217,7 +219,7 @@ func main() {
 	rcvWalletsAuthAddress := fmt.Sprintf("%v%v", LocalConfig.LocalTcpIpAddr, LocalConfig.WalletAuthPort)
 	rcvWalletsAuth.Connect(rcvWalletsAuthAddress)
 
-	//Creating a connection with "IN" server (receive)
+	//Creating connection with "IN" server (receive)
 	var rcvTransactionHistoryAddresses = make(map[int]string)
 	ij := 1 // like Coin ID
 	for i := LocalConfig.WalletrcvHistoryBegin; i <= LocalConfig.WalletrcvHistoryEnd; i++ {
@@ -230,7 +232,7 @@ func main() {
 		ij++
 	}
 
-	//Creating a connection with "IN" servers (send)
+	//Creating connection with "IN" servers (send)
 	//sending data to "IN" servers. Info about new user address
 	j := 1
 	var addressMap = make(map[int]string)
@@ -244,9 +246,9 @@ func main() {
 		time.Sleep(10*time.Millisecond)
 	}
 
-	//Creating a connection with "OUT" servers (send)
+	//Creating connection with "OUT" servers (send)
 	//sending data to "OUT" servers.
-	//Sending a request for making an  OUT transaction. Sending coins to other addresses
+	//Sending request for make OUT transaction. Sending coins to other address
 	j = 1
 	var addressTrMap = make(map[int]string)
 	for i := LocalConfig.WalletaddressTrMapBegin; i <= LocalConfig.WalletaddressTrMapEnd; i++  {
@@ -272,26 +274,26 @@ func main() {
 		time.Sleep(10*time.Millisecond)
 	}
 
-	//Creating a  connection with a balance server (receive)
+	//Creating connection with balance server (receive)
 	rcvCheckBalance, _ = zmq.NewSocket(zmq.PULL)
 	defer rcvCheckBalance.Close()
 	rcvCheckBalance.SetRcvhwm(1100000)
 	rcvCheckBalance.Connect(fmt.Sprintf("%v%v", LocalConfig.LocalTcpIpAddr, LocalConfig.WalletrcvCheckBalancePort))
 
-	//Creating a connection with balance server (send)
+	//Creating connection with balance server (send)
 	sndCheckBalance, _ = zmq.NewSocket(zmq.PUSH)
 	defer sndCheckBalance.Close()
 	sndCheckBalance.SetRcvhwm(1100000)
 	sndCheckBalance.Bind(fmt.Sprintf("%v%v", LocalConfig.LocalTcpIpAddr, LocalConfig.WalletsndCheckBalancePort))
 
-	//Creating a connection with Mail server (send)
+	//Creating connection with Mail server (send)
 	sendWalletsMail ,_ = zmq.NewSocket(zmq.PUSH)
 	defer sendWalletsMail.Close()
 	sendWalletsMail.SetRcvhwm(1100000)
 	sendWalletsMailAddress := fmt.Sprintf("%v%v", LocalConfig.LocalTcpIpAddr, LocalConfig.WalletsendMailPort)
 	sendWalletsMail.Bind(sendWalletsMailAddress);
 
-	//Creating a connection with OUT servers (receive)
+	//Creating connection with OUT servers (receive)
 	ij = 0
 	for i := 7410; i <= 7419; i++  {
 		rcvTransactionAnswer[ij], _ = zmq.NewSocket(zmq.PULL)
@@ -342,9 +344,30 @@ func main() {
 	defer TransactionsHistoryETH.file10000.Close()
 	TransactionsHistoryETH.name = "transactionsHistoryETH"
 
-	//Read data from Ethereum and Bitcoin Transactions Storages
+	//Loading data from Ethereum Transactions Storage
+	TransactionsHistoryLTC.file200, err = os.OpenFile("../Litecoin/transactionsHistory200.db", os.O_RDWR|os.O_CREATE, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer TransactionsHistoryLTC.file200.Close()
+
+	TransactionsHistoryLTC.file1000, err = os.OpenFile("../Litecoin/transactionsHistory1000.db", os.O_RDWR|os.O_CREATE, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer TransactionsHistoryLTC.file1000.Close()
+
+	TransactionsHistoryLTC.file10000, err = os.OpenFile("../Litecoin/transactionsHistory10000.db", os.O_RDWR|os.O_CREATE, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer TransactionsHistoryLTC.file10000.Close()
+	TransactionsHistoryLTC.name = "transactionsHistory"
+
+	//Read data from Ethereum and Bitcoin Transactions Storage
 	readMapData(&TransactionsHistoryETH, "Ethereum")
 	readMapData(&TransactionsHistory, "Bitcoin")
+	readMapData(&TransactionsHistoryLTC, "Litecoin")
 
 	fmt.Println("Servers is loaded")
 	go reciveTransactionAnswer()
@@ -378,8 +401,8 @@ func subscribe(mail string) int{
 /*
 function readMapData
 args: storage, coin type
-the function is to read data from the storage and to write it to binary array
- */
+function read data from storage and write it to binary array
+*/
 func readMapData(dataStorage *Storage, Coin string) {
 	var userId uint64
 	Path := fmt.Sprintf("../%v/%vMap.db",Coin, dataStorage.name)
@@ -393,8 +416,8 @@ func readMapData(dataStorage *Storage, Coin string) {
 
 	fi, err := file.Stat()
 	if err != nil {
-		// Failed getting stat, handle error
-		log.Fatal("Failed getting stat ", err)
+		// Could not obtain stat, handle error
+		log.Fatal("Could not obtain stat", err)
 	}
 
 	var i uint64
@@ -428,7 +451,7 @@ func readMapData(dataStorage *Storage, Coin string) {
 		var new_read_offset uint64
 		var read_strings uint64
 
-		//how many records will be read from the  storage
+		//how many records will be read from storage
 		if dataStorage.historyRegistry[userId].records >= 200 {
 			read_strings = 200
 		} else {
@@ -450,7 +473,7 @@ func readMapData(dataStorage *Storage, Coin string) {
 				new_read_offset = uint64(10000)
 			}
 
-			//reading data from the storage
+			//reading data from storage
 			HistoryETH = readFileData(userId,read_strings, new_read_offset, dataStorage, Coin)
 
 			var offset int
@@ -511,8 +534,8 @@ func readMapData(dataStorage *Storage, Coin string) {
 			if dataStorage.historyRegistry[userId].file == 4 {
 				new_read_offset = uint64(10000)
 			}
-
-			//reading data from the storage
+			HistoryBTC = []byte{}
+			//reading data from storage
 			HistoryBTC = readFileData(userId,read_strings, new_read_offset, dataStorage, Coin)
 
 			if len(AllHistoryBin.data) <= 1 {
@@ -526,9 +549,9 @@ func readMapData(dataStorage *Storage, Coin string) {
 
 /*
 function readFileDataOffset
-args: User ID, how many records will be read from the storage, read offset, storage
+args: User ID, how many records will be read from storage, read offset, storage
 function returns read offset
- */
+*/
 func readFileDataOffset(userId uint64, amount uint64, offset uint64, dataFiles *Storage) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	recordData := &dataFiles.historyRegistry[userId]
 
@@ -599,9 +622,9 @@ func readFileDataOffset(userId uint64, amount uint64, offset uint64, dataFiles *
 
 /*
 function readFileData
-args: User ID, how many records will be read from the storage, read offset, storage
-function returns records from the storage
- */
+args: User ID,  how many records will be read from storage, read offset, storage
+function returns records from storage
+*/
 func readFileData(userId uint64, amount uint64, offset uint64, dataFiles *Storage, Coin string) ([]byte) {
 	buffer := make([]byte,1)
 	recordData := &dataFiles.historyRegistry[userId]
@@ -677,8 +700,8 @@ func readFileData(userId uint64, amount uint64, offset uint64, dataFiles *Storag
 
 /*
 function sendToMailServer
-sending a request to create a new mail
- */
+sending request for create new mail
+*/
 func sendToMailServer() {
 	for {
 		TMPMailData.mux.Lock()
@@ -693,8 +716,8 @@ func sendToMailServer() {
 
 /*
 function sendMail
-creating a request with a binary data
- */
+creating request with binary data
+*/
 func sendMail(MailData mailStruct) {
 	mailbuf := make([]byte, 158)
 
@@ -719,7 +742,7 @@ func sendMail(MailData mailStruct) {
 function reciveTrHistory
 function for listening sockets
 listening data from "IN" servers
- */
+*/
 func reciveTrHistory() {
 	poller := zmq.NewPoller()
 	for i, _ := range rcvTransactionHistory {
@@ -788,8 +811,8 @@ var globalCounter int
 
 /*
 function ProcessTrSokets
-function for reading data from sockets and writing them to a binary array
- */
+function for reading data from sockets and writing it to binary array
+*/
 func ProcessTrSokets(msg []byte) {
 	var UserId uint64
 	var InOut uint64
@@ -877,7 +900,7 @@ func ProcessTrSokets(msg []byte) {
 				var updateFlag bool
 				updateFlag = false
 
-				//searching for the transaction that already exist in a binary array
+				//searching transaction that already exist in binary array
 				j := 0
 				globalCounter++
 				AllHistoryBin.mux.Lock()
@@ -904,7 +927,7 @@ func ProcessTrSokets(msg []byte) {
 						updateFlag = true
 						break
 					}
-					if CoinID == 1 && InOut == 0 { // sent Bitcoin
+					if CoinID == 1 && InOut == 0  || CoinID == 3 && InOut == 0 { // sent Bitcoin
 						if uIDCMP == UserId && InOutCMP == uint16(InOut) && strings.ToLower(TrToCMP) == strings.ToLower(TrTo) && TransactionHashCMP == TransactionHash {
 							//update comfirmed number
 							//DON'T USE PutUint in AllHistoryBin!!!
@@ -953,8 +976,8 @@ func ProcessTrSokets(msg []byte) {
 
 /*
 function sendBforCheck
-sending a request to check balance, to make a new transaction
- */
+sending request for check balance, for make new transaction
+*/
 func sendBforCheck(CoinID uint64, userId uint64, value uint64) {
 	buf := make([]byte, 24)
 	binary.LittleEndian.PutUint64(buf[0:8], userId)
@@ -971,7 +994,7 @@ func sendBforCheck(CoinID uint64, userId uint64, value uint64) {
 function reciveTransactionAnswer
 function for listening sockets
 listening data from "OUT" servers
- */
+*/
 func reciveTransactionAnswer() {
 	poller := zmq.NewPoller()
 	for i, _ := range rcvTransactionAnswer {
@@ -984,60 +1007,60 @@ func reciveTransactionAnswer() {
 		}
 		for _, socket := range sockets {
 			switch socket.Socket {
-				case rcvTransactionAnswer[1]:
-					result,_ := rcvTransactionAnswer[1].RecvBytes(0) // eat the incoming message
-					if len(result) < 3{
-						continue
-					}
-					proccessTransactionAnswer(result)
-				case rcvTransactionAnswer[2]:
-					result,_ := rcvTransactionAnswer[2].RecvBytes(0) // eat the incoming message
-					if len(result) < 3{
-						continue
-					}
-					proccessTransactionAnswer(result)
-				case rcvTransactionAnswer[3]:
-					result,_ := rcvTransactionAnswer[3].RecvBytes(0) // eat the incoming message
-					if len(result) < 3{
-						continue
-					}
-					proccessTransactionAnswer(result)
-				case rcvTransactionAnswer[4]:
-					result,_ := rcvTransactionAnswer[4].RecvBytes(0) // eat the incoming message
-					if len(result) < 3{
-						continue
-					}
-					proccessTransactionAnswer(result)
-				case rcvTransactionAnswer[5]:
-					result,_ := rcvTransactionAnswer[5].RecvBytes(0) // eat the incoming message
-					if len(result) < 3{
-						continue
-					}
-					proccessTransactionAnswer(result)
-				case rcvTransactionAnswer[6]:
-					result,_ := rcvTransactionAnswer[6].RecvBytes(0) // eat the incoming message
-					if len(result) < 3{
-						continue
-					}
-					proccessTransactionAnswer(result)
-				case rcvTransactionAnswer[7]:
-					result,_ := rcvTransactionAnswer[7].RecvBytes(0) // eat the incoming message
-					if len(result) < 3{
-						continue
-					}
-					proccessTransactionAnswer(result)
-				case rcvTransactionAnswer[8]:
-					result,_ := rcvTransactionAnswer[8].RecvBytes(0) // eat the incoming message
-					if len(result) < 3{
-						continue
-					}
-					proccessTransactionAnswer(result)
-				case rcvTransactionAnswer[9]:
-					result,_ := rcvTransactionAnswer[9].RecvBytes(0) // eat the incoming message
-					if len(result) < 3{
-						continue
-					}
-					proccessTransactionAnswer(result)
+			case rcvTransactionAnswer[1]:
+				result,_ := rcvTransactionAnswer[1].RecvBytes(0) // eat the incoming message
+				if len(result) < 3{
+					continue
+				}
+				proccessTransactionAnswer(result)
+			case rcvTransactionAnswer[2]:
+				result,_ := rcvTransactionAnswer[2].RecvBytes(0) // eat the incoming message
+				if len(result) < 3{
+					continue
+				}
+				proccessTransactionAnswer(result)
+			case rcvTransactionAnswer[3]:
+				result,_ := rcvTransactionAnswer[3].RecvBytes(0) // eat the incoming message
+				if len(result) < 3{
+					continue
+				}
+				proccessTransactionAnswer(result)
+			case rcvTransactionAnswer[4]:
+				result,_ := rcvTransactionAnswer[4].RecvBytes(0) // eat the incoming message
+				if len(result) < 3{
+					continue
+				}
+				proccessTransactionAnswer(result)
+			case rcvTransactionAnswer[5]:
+				result,_ := rcvTransactionAnswer[5].RecvBytes(0) // eat the incoming message
+				if len(result) < 3{
+					continue
+				}
+				proccessTransactionAnswer(result)
+			case rcvTransactionAnswer[6]:
+				result,_ := rcvTransactionAnswer[6].RecvBytes(0) // eat the incoming message
+				if len(result) < 3{
+					continue
+				}
+				proccessTransactionAnswer(result)
+			case rcvTransactionAnswer[7]:
+				result,_ := rcvTransactionAnswer[7].RecvBytes(0) // eat the incoming message
+				if len(result) < 3{
+					continue
+				}
+				proccessTransactionAnswer(result)
+			case rcvTransactionAnswer[8]:
+				result,_ := rcvTransactionAnswer[8].RecvBytes(0) // eat the incoming message
+				if len(result) < 3{
+					continue
+				}
+				proccessTransactionAnswer(result)
+			case rcvTransactionAnswer[9]:
+				result,_ := rcvTransactionAnswer[9].RecvBytes(0) // eat the incoming message
+				if len(result) < 3{
+					continue
+				}
+				proccessTransactionAnswer(result)
 			}
 		}
 	}
@@ -1045,8 +1068,8 @@ func reciveTransactionAnswer() {
 
 /*
 function proccessransactionAnswer
-function for reading data from sockets and writing them to response channel
- */
+function for reading data from sockets and writing it to response channel
+*/
 func proccessTransactionAnswer(msg []byte) {
 	if len(msg) == 3 {
 		sTmp := make([]byte, 8)
@@ -1070,9 +1093,9 @@ func proccessTransactionAnswer(msg []byte) {
 /*
 function reciveBalanceAnswer
 function for listening sockets
-listening data from a Balance serve
-if responded == 1 new transaction will be created
- */
+listening data from Balance server
+if response == 1 will be created new transaction
+*/
 func reciveBalanceAnswer() {
 	poller := zmq.NewPoller()
 	poller.Add(rcvCheckBalance, zmq.POLLIN)
@@ -1125,7 +1148,7 @@ func reciveBalanceAnswer() {
 			}
 			UsersHasAddr.mux.Unlock()
 
-			if CoinID == 1 {
+			if CoinID == 1 || CoinID == 3{
 				sndFromLen = 16 + len(userKey)
 				sndToLen = sndFromLen + len(sndTo)
 				bufLen := sndToLen + len(sndFrom)
@@ -1162,7 +1185,7 @@ func SendMoneyTo(sndFrom string, sndTo string, CoinID uint64, userId uint64, val
 /*
 function handleWconn
 handling http request
- */
+*/
 func handleWconn(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Connection", "close")
@@ -1176,7 +1199,7 @@ func handleWconn(w http.ResponseWriter, r *http.Request) {
 		data[1] - user session
 		data[2] - user id
 		data[3] - send to wallet // type int, from 1 till 7 (9)
-		data[4-9] - request params
+		data[4-9] - request's params
 	*/
 
 	if (len(data) < 6) {
@@ -1195,7 +1218,7 @@ func handleWconn(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("globalCounter------ ", globalCounter)
 
-	//Check the type of requests
+	//Check Type of requests
 	if (data[0] == "Subscribe") {
 		email := strings.TrimSpace(r.FormValue("email"))
 		result := subscribe(email)
@@ -1218,9 +1241,9 @@ func handleWconn(w http.ResponseWriter, r *http.Request) {
 		for key, data := range UsersHasAddr.data[userId] {
 			if data.CoinID == CoinID && strings.ToLower(data.PublicKey) == strings.ToLower(walletAddress) {
 				/*
-				Delete From map, but not from file
-				When server will be restarted, will load last address
-				TODO think about "IN" servers
+					Delete From map, but not from file
+					When server will be restarted, will load last address
+					TODO think about "IN" servers
 				*/
 				delete(UsersHasAddr.data[userId], key)
 				UsersHasAddr.mux.Unlock()
@@ -1419,8 +1442,8 @@ func coutTransactions(userId uint64) string{
 
 /*
 function displayAllHistory
-reading data from a binary array and send it to user
- */
+reading data from binary array and send it to user
+*/
 func displayAllHistory(userId uint64, filter uint64, address string) string{
 	_, userIsOk := WclientsId.data[userId]
 	if userIsOk {
@@ -1543,7 +1566,7 @@ func displayAllHistory(userId uint64, filter uint64, address string) string{
 /*
 function displayAllUserWallets
 displaying all user wallets
- */
+*/
 func displayAllUserWallets(userId uint64) string {
 	_, userIsOk := WclientsId.data[userId]
 
@@ -1567,7 +1590,7 @@ func displayAllUserWallets(userId uint64) string {
 /*
 function updeteListningServers
 send info about new user wallet address
- */
+*/
 func updeteListningServers(userId uint64, publicKey string, privateKey string, CoinID uint64) {
 	if len(privateKey) != 0 &&  len(publicKey) != 0{
 		var publicKeyLen int
@@ -1587,8 +1610,8 @@ func updeteListningServers(userId uint64, publicKey string, privateKey string, C
 
 /*
 function getWalletAddress
-give the user a new wallet address
- */
+give to user new wallet address
+*/
 func getWalletAddress(coinType string, userId uint64, CoinID uint64) string {
 	if CoinID == 0 {
 		return ""
@@ -1638,8 +1661,8 @@ func getWalletAddress(coinType string, userId uint64, CoinID uint64) string {
 
 /*
 function deleteAddFromFree
-updating the wallet address storage
- */
+updating wallet address storage
+*/
 func deleteAddFromFree(PrivateKey string, PublicKey string, coinType string) {
 	string := fmt.Sprintf("%v%v", PrivateKey, PublicKey)
 	stringLen := len(string)
@@ -1690,8 +1713,8 @@ func deleteAddFromFree(PrivateKey string, PublicKey string, coinType string) {
 
 /*
 function getFreeAddress
-load addresses from the storage
- */
+load addresses from storage
+*/
 func getFreeAddress(currency string, currencyType string) {
 	var keysData = make(map[string]string)
 
@@ -1802,8 +1825,8 @@ func writeFileWallet(PrivateKey string, PublicKey string, userId uint64, coinTyp
 
 /*
 function loadUserAddr
-loading the user address from the storage
- */
+loading user address from storage
+*/
 func loadUserAddr(coinType string) {
 	var Path string
 	var fileLen int64
@@ -1828,8 +1851,8 @@ func loadUserAddr(coinType string) {
 	}
 	fi, err := file.Stat()
 	if err != nil {
-		//Failed to get stat, handle error
-		log.Fatal("Failed to get stat ", err)
+		// Could not obtain stat, handle error
+		log.Fatal("Could not obtain stat", err)
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -1864,7 +1887,7 @@ func loadUserAddr(coinType string) {
 		UserId := binary.LittleEndian.Uint64(data[0:8])
 		CoinID :=  binary.LittleEndian.Uint64(data[8:16])
 
-		if CoinID != 1 && CoinID != 4 {
+		if CoinID != 1 && CoinID != 4 && CoinID != 3{
 			continue
 		}
 
@@ -1899,7 +1922,7 @@ function checkWalletsAuth
 function for listening sockets
 listening data from Auth server
 receiving info about user authorization or about new user
- */
+*/
 func checkWalletsAuth() {
 	poller := zmq.NewPoller()
 	poller.Add(rcvWalletsAuth, zmq.POLLIN)
@@ -1969,8 +1992,8 @@ func checkWalletsAuth() {
 
 /*
 function readNextBytes
-function returns N bytes from the file
- */
+function return N bytes from file
+*/
 func readNextBytes(file *os.File, number int) []byte {
 	bytes := make([]byte, number)
 
