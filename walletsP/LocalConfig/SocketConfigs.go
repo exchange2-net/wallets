@@ -22,6 +22,22 @@ const BTCsndOutTrnsctnPort = 7661
 const BTCsndTrnsctnAnswerPort = 7411
 const BTCrcvNewAddressOUTPort = 7201
 
+//Litecoin server ports
+const LTCBalancePort = 9993
+const LTCOutTrnsctnPort = 7663
+const LTCrcvNewAddressPort = 7103
+const LTCsndTrnsctnHstrPort = 7993
+const LTCsndTrnsctnHstrOUTPORT = 7893
+const LTCsndColdTxInOUTPort = 7894
+
+//Litecoin OUT servers port
+const LTCBalanceOUTPort = 9998
+const LTCrcvTrnsctnHstrOUTPort = 7893
+const LTCrcvColdTxInPort = 7894
+const LTCsndOutTrnsctnPort = 7663
+const LTCsndTrnsctnAnswerPort = 7413
+const LTCrcvNewAddressOUTPort = 7203
+
 //Wallet server Ports
 const WalletaddressMapBegin = 7101
 const WalletaddressMapEnd = 7110

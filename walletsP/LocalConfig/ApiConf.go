@@ -20,6 +20,14 @@ const BitcoinHost = "127.0.0.1:18443"
 const BitcoinCoreUser = ""
 const BitcoinCorePassw = ""
 
+//Litecoin IN server settings
+const LitecoinColdWallet = ""
+const LitecoinWalletPass = ""
+const LitecoinDefaultPort = ""
+const LitecoinHost = "127.0.0.1:19332"
+const LitecoinCoreUser = ""
+const LitecoinCorePassw = ""
+
 //pulse
 const PulseHost = "smtp-pulse.com"
 const PulseHostAndTLSPort = "smtp-pulse.com:587"
