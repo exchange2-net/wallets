@@ -551,7 +551,7 @@ function create_wallet() {
         };
         ReplacedWalletsTemplate = replaceTemplate(AllWallets, "wallets", "AllWallets");
         $(TepmpalteDIV).prepend(ReplacedWalletsTemplate);
-        if (document.getElementById("display_all_wallets").childElementCount >= 2) {
+        if (document.getElementById("display_all_wallets").childElementCount >= 3) {
             $("#add_wallet_button").css("display", "none");
         }
         getBalance("wallets", 0);
@@ -560,32 +560,32 @@ function create_wallet() {
 }
 
 function loadSettings() {
-    CoinID["Litecoin"] = 9;
+    CoinID["Litecoin"] = 3;
     CoinID["EthClassic"] = 7;
     CoinID["Dogecoin"] = 8;
     CoinID["Bitcoin"] = 1;
     CoinID["Ether1"] = 6;
     CoinID["Ethereum"] = 4;
-    CoinID["Ravecoin"] = 3;
+    CoinID["Ravecoin"] = 9;
 
     Coin2ID["BTC"] = 1;
     Coin2ID["ETC"] = 7;
-    Coin2ID["LTC"] = 9;
+    Coin2ID["LTC"] = 3;
     Coin2ID["DOGE"] = 8;
     Coin2ID["ETHO"] = 6;
     Coin2ID["ETH"] = 4;
-    Coin2ID["RVN"] = 3;
+    Coin2ID["RVN"] = 9;
 
-    CoinById[9] = {
-        B_ID: 9,
+    CoinById[3] = {
+        B_ID: 3,
         ShortName: "LTC",
         Name: "Litecoin",
         ImgUrl: "http://" + HOST_IP + HOST_PORT + "/img/icon/wallets-icon/wallets-icon-litecoin.svg",
         Scale: 9,
         priceDelimiter: 1000000000,
-        destination: 4,
-        GasLimit: 2100,
-        GasPrice: 0.000001,
+        destination: 6,
+        GasLimit: 1000,
+        GasPrice: 0.00000001,
     };
     CoinById[7] = {
         B_ID: 7,
@@ -596,7 +596,7 @@ function loadSettings() {
         priceDelimiter: 1000000000,
         destination: 6,
         GasLimit: 420,
-        GasPrice: 0.000001,
+        GasPrice: 0.00000001,
     };
     CoinById[8] = {
         B_ID: 8,
@@ -605,7 +605,7 @@ function loadSettings() {
         ImgUrl: "http://" + HOST_IP + HOST_PORT + "/img/icon/wallets-icon/wallets-icon-dogecoin.svg",
         Scale: 9,
         priceDelimiter: 1000000000,
-        destination: 4,
+        destination: 6,
         GasLimit: 2100,
         GasPrice: 0.000001,
     };
@@ -642,14 +642,14 @@ function loadSettings() {
         GasLimit: 420,
         GasPrice: 0.000001,
     };
-    CoinById[3] = {
-        B_ID: 3,
+    CoinById[9] = {
+        B_ID: 9,
         ShortName: "RVN",
         Name: "Ravecoin",
         ImgUrl: "http://" + HOST_IP + HOST_PORT + "/img/icon/wallets-icon/wallets-icon-ravecoin.svg",
         Scale: 9,
         priceDelimiter: 1000000000,
-        destination: 4,
+        destination: 6,
         GasLimit: 1000,
         GasPrice: 0.00000001,
     };
@@ -954,7 +954,7 @@ function displayAllWallets(page, filter) {
         if (wallets != "") {
             if (page == "wallets") {
                 ReplacedWalletsTemplate = replaceTemplate(AllWallets, page, "AllWallets");
-                if (AllWallets.length >= 2) {
+                if (AllWallets.length >= 3) {
                     //$(TepmpalteDIV).empty();
                     $("#add_wallet_button").css("display", "none");
                 } else {
