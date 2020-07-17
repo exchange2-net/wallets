@@ -43,7 +43,7 @@ func LoadPairs() {
 	Delimiter[2] = 1000000000  //EOS
 	Delimiter[1] = 1000000000 //BTC
 	Delimiter[4] = 1000000000 //ETH
-	Delimiter[3] = 1000      //XRP
+	Delimiter[3] = 1000000000 //LTC
 	Delimiter[0] = 1000      //RVN
 	Delimiter[6] = 1000      //ETHO
 	Delimiter[7] = 1000      //ETC
@@ -53,5 +53,6 @@ func LoadPairs() {
 
 func LoadWAllets() {
 	WalletList[1] = WalletType{WalletID: 1, WalletName: "Bitcoin",  WalletShort: "BTC", litecoin: "127.0.0.1", RpcUser: "rpcclient",  RpcPassw: "P0", RpcPort: 19332, GraphicIp: "127.0.0.1", GraphicPort: 8104}
+	WalletList[3] = WalletType{WalletID: 3, WalletName: "Litecoin",  WalletShort: "LTC", litecoin: "127.0.0.1", RpcUser: "rpcclient",  RpcPassw: "P0", RpcPort: 19332, GraphicIp: "127.0.0.1", GraphicPort: 80}
 	WalletList[4] = WalletType{WalletID: 4, WalletName: "Ethereum",  WalletShort: "ETH", litecoin: "127.0.0.1", RpcUser: "rpcclient",  RpcPassw: "P0", RpcPort: 19332, GraphicIp: "127.0.0.1", GraphicPort: 8106}
 }
