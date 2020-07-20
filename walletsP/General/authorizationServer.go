@@ -150,9 +150,9 @@ init google AUTH data
  */
 func init() {
 	googleOauthConfig = &oauth2.Config{
-		RedirectURL:  "http://127.0.0.1:8008/callback",
-		ClientID:     "74885014042-c67sdssl7mrodg26ebgcn96jr428b18e.apps.googleusercontent.com",
-		ClientSecret: "e8auRP--Ca66Rz244R0OdQrh",
+		RedirectURL:  "",
+		ClientID:     "",
+		ClientSecret: "",
 		Scopes:       []string{"https://www.googleapis.com/auth/userinfo.email"},
 		Endpoint:     google.Endpoint,
 	}
