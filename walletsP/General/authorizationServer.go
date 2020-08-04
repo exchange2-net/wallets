@@ -23,7 +23,7 @@ import (
 	"sync"
 	"wallets/walletsP/LocalConfig"
 )
-
+ 
 var SendToServers = make(map[int]*zmq.Socket) //ZMQ, socket variable  // send auth message
 var mailAUTH *zmq.Socket //ZMQ, socket variable // send message to the mail server
 
